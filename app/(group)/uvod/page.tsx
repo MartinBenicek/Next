@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Uvod = () => {
-  return (
-    <div>
-      uvod
-    </div>
-  )
-}
+  return <div>uvod</div>;
+};
 
 export default Uvod;

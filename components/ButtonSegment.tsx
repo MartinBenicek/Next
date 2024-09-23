@@ -1,20 +1,15 @@
-"use client"
-import React, { useState } from 'react'
+"use client";
 
-const ButtonSegment = ({id, show} : {id:string; show: boolean;}) => {
-  const [isGrid, setGrid] = useState(show);
-  const handleOnClick = () =>{
-    const newGrid = !isGrid;
-    setGrid(newGrid);
-    return(newGrid)
-  }
+import React from "react";
+
+const ButtonSegment = ({ id, styles }: { id: string; styles: string }) => {
   return (
-    <>
-      <div id={`${id}-div`}>
-            <button className="" id={id}>{id}</button>
-      </div>
-    </>
-  )
-}
+    <div className={`${styles}`}>
+      <button className="border-solid border-2 bg-orange-300 border-orange-500 lg:hover:bg-orange-500 rounded-lg w-20 h-10 cursor-default">
+        {id}
+      </button>
+    </div>
+  );
+};
 
 export default ButtonSegment;
