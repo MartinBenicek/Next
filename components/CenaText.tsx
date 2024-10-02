@@ -12,7 +12,7 @@ const CenaText = ({
       <p className={textStyles}>Typ Hry</p>
       <p className={textStyles}>Hlášeno</p>
       <p className={textStyles}>Fleknuto</p>
-      <span className={textStyles}>
+      <span className={`flex flex-col ${textStyles}`}>
         <p className="text-base lg:text-xl">Uhrál</p>
         <p className="text-xs">Povinnost/obrana</p>
       </span>

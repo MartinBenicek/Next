@@ -1,29 +1,58 @@
 "use client";
+import { useState } from "react";
 
-import React from "react";
+const initialState = {
+  flekValue: 0,
+  hlasenoValue: false,
+  bodyValue: 0,
+};
 
 const ButtonSegment = ({ id, styles }: { id: string; styles: string }) => {
+  const [isGrid, setGrid] = useState(false);
+  const [checked, setChecked] = useState(false);
+  const [inputValues, setInputValues] = useState(initialState);
+  const handleButtonClick = () => {
+    const newGrid = !isGrid;
+    setGrid(newGrid);
+    /*
+    setTimeout(() => {
+      props.info(props.id);
+    }, 0);*/
+  };
+  const handleCheckboxClick = () => {
+    setChecked(!checked);
+  };
   const hlaseno = (id === "Sedma" || id === "Kilo") && (
-    <span
-      className={`flex w-full relative justify-around ${id === "Sedma" ? "row-start-3" : "row-start-4"}`}
-    >
-      <input
-        className="cursor-pointer m-auto h-7 w-7 opacity-0 absolute"
-        type="checkbox"
-        id={`hlaseno-${id}`}
-      />
+    <span className={`flex w-full relative justify-around`}>
       <label
-        className="cursor-pointer flex before:h-7 before:w-7 before:border-2 before:border-orange-500 before:border-solid before:content-[''] before:bg-orange-100 before:rounded-md "
-        htmlFor={`hlaseno-${id}`}
-      ></label>
+        className={`${checked ? "bg-lime-400" : "bg-red-500"} cursor-pointer block h-7 w-7 border-2 border-black border-solid content-['']  rounded-md `}
+      >
+        <input
+          className="hidden"
+          type="checkbox"
+          id={`hlaseno-${id}`}
+          onChange={handleCheckboxClick}
+          checked={checked}
+        />
+      </label>
     </span>
   );
   return (
     <div className={`${styles}`}>
-      <button className="border-solid border-2 bg-orange-300 border-orange-500 lg:hover:bg-orange-500 rounded-lg w-20 h-10 cursor-default row-start-1">
+      <button
+        className={`border-solid border-2 bg-orange-300 border-orange-500  rounded-lg w-20 h-10 cursor-default row-start-1 lg:hover:bg-orange-500 ${isGrid ? "bg-orange-500 " : "bg-orange-300 "} `}
+        onClick={handleButtonClick}
+      >
         {id}
       </button>
-      {hlaseno}
+      <div
+        className={`${isGrid ? "grid" : "hidden"} grid-rows-4 h-full row-start-2 row-span-4 items-center justify-center`}
+      >
+        {hlaseno}
+        <label className="h-6 w-12 block content-[''] border-2 border-black border-solid rounded-md">
+          <input type="number" min="0" className="hidden" />
+        </label>
+      </div>
     </div>
   );
 };
