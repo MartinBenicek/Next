@@ -1,16 +1,9 @@
 "use client";
 import { useState } from "react";
-
-const initialState = {
-  flekValue: 0,
-  hlasenoValue: false,
-  bodyValue: 0,
-};
+import DivSection from "./DivSection";
 
 const ButtonSegment = ({ id, styles }: { id: string; styles: string }) => {
   const [isGrid, setGrid] = useState(false);
-  const [checked, setChecked] = useState(false);
-  const [inputValues, setInputValues] = useState(initialState);
   const handleButtonClick = () => {
     const newGrid = !isGrid;
     setGrid(newGrid);
@@ -19,24 +12,6 @@ const ButtonSegment = ({ id, styles }: { id: string; styles: string }) => {
       props.info(props.id);
     }, 0);*/
   };
-  const handleCheckboxClick = () => {
-    setChecked(!checked);
-  };
-  const hlaseno = (id === "Sedma" || id === "Kilo") && (
-    <span className={`flex w-full relative justify-around`}>
-      <label
-        className={`${checked ? "bg-lime-400" : "bg-red-500"} cursor-pointer block h-7 w-7 border-2 border-black border-solid content-['']  rounded-md `}
-      >
-        <input
-          className="hidden"
-          type="checkbox"
-          id={`hlaseno-${id}`}
-          onChange={handleCheckboxClick}
-          checked={checked}
-        />
-      </label>
-    </span>
-  );
   return (
     <div className={`${styles}`}>
       <button
@@ -48,10 +23,7 @@ const ButtonSegment = ({ id, styles }: { id: string; styles: string }) => {
       <div
         className={`${isGrid ? "grid" : "hidden"} grid-rows-4 h-full row-start-2 row-span-4 items-center justify-center`}
       >
-        {hlaseno}
-        <label className="h-6 w-12 block content-[''] border-2 border-black border-solid rounded-md">
-          <input type="number" min="0" className="hidden" />
-        </label>
+        <DivSection id={`${id}`} />
       </div>
     </div>
   );
