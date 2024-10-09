@@ -18,7 +18,26 @@ const DivSection = ({ id }: { id: string }) => {
       checked: !prevState.checked,
     }));
   };
+  const handleFlekIncrease = () => {
+    setInputValues((prevState) => ({
+      ...prevState,
+      flekValue: prevState.flekValue + 1,
+    }));
+  };
 
+  const handleFlekDecrease = () => {
+    setInputValues((prevState) => ({
+      ...prevState,
+      flekValue: Math.max(prevState.flekValue - 1, 0),
+    }));
+  };
+  const handleFlekChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value, 10) || 0;
+    setInputValues((prevState) => ({
+      ...prevState,
+      flekValue: value,
+    }));
+  };
   const hlaseno = (id === "Sedma" || id === "Kilo") && (
     <span className={`flex w-full relative justify-around`}>
       <label
@@ -37,14 +56,26 @@ const DivSection = ({ id }: { id: string }) => {
   return (
     <>
       {hlaseno}
-      <div className="grid grid-cols-3 grid-rows-2 items-center">
-        <label className="h-6 w-12 block content-[''] border-2 border-black border-solid rounded-md row-span-2 col-span-2">
-          <input type="number" min="0" className="hidden" />
+      <div className="grid grid-cols-3 grid-rows-2 items-center gap-1 row-start-2">
+        <label className="relative h-full w-12 block content-[''] border-2 border-black border-solid rounded-md row-span-2 col-span-2">
+          <input
+            type="number"
+            min="0"
+            className="absolute inset-0 rounded-md p-1 outline-none"
+            value={inputValues.flekValue}
+            onChange={handleFlekChange}
+          />
         </label>
-        <button className="border-2 border-black border-solid rounded-md col-start-3 row-start-1 text-xs">
+        <button
+          onClick={handleFlekIncrease}
+          className="border-2 border-black border-solid rounded-md col-start-3 row-start-1 text-xs"
+        >
           +
         </button>
-        <button className="border-2 border-black border-solid rounded-md col-start-3 row-start-2 text-xs">
+        <button
+          onClick={handleFlekDecrease}
+          className="border-2 border-black border-solid rounded-md col-start-3 row-start-2 text-xs"
+        >
           -
         </button>
       </div>
