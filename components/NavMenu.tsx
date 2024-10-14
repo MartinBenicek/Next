@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import UvodCard from "@/components/UvodCard";
+import UvodCard from "./uvodCard";
 
 const NavMenu = ({ image, text }: { image: string; text: string }) => {
   const [menu, setMenu] = useState(false);

@@ -1,4 +1,4 @@
-import UvodCard from "@/components/UvodCard";
+import UvodCard from "@/components/uvodCard";
 
 export default function Home() {
   return (
