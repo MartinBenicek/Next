@@ -1,7 +1,7 @@
 import React from "react";
 
-const Uvod = () => {
+const Page = () => {
   return <div>uvod</div>;
 };
 
-export default Uvod;
+export default Page;

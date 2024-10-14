@@ -3,7 +3,7 @@ import Card from "@/components/Card";
 import { heartCards, diamondCards, spadesCards, clubCards } from "@/constants";
 import { useState } from "react";
 
-const PocitaniKaret = () => {
+const Page = () => {
   const [click, setClick] = useState(false);
   const restart = () => {
     setClick(!click);
@@ -60,4 +60,4 @@ const PocitaniKaret = () => {
   );
 };
 
-export default PocitaniKaret;
+export default Page;

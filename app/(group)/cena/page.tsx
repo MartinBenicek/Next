@@ -3,7 +3,7 @@ import { useState } from "react";
 import ButtonSegment from "../../../components/ButtonSegment";
 import CenaText from "@/components/CenaText";
 
-const page = () => {
+const Page = () => {
   /*const [show, setShow] = useState({
     Hra: false,
     Sedma: false,
@@ -90,4 +90,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
