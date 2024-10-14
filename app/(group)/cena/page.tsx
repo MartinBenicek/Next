@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import ButtonSegment from "../../../components/ButtonSegment";
+import ButtonSegment from "@/components/ButtonSegment";
 import CenaText from "@/components/CenaText";
 
 const Page = () => {
