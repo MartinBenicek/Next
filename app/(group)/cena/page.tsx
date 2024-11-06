@@ -48,12 +48,10 @@ const Page = () => {
     "row-start-1 row-end-7 grid grid-rows-5 h-full justify-items-center items-center";
   return (
     <main className="flex flex-grow flex-col items-center justify-center gap-8">
+      <h1 className="text-3xl">Výpočet ceny</h1>
       <section className="h-[40vh]">
         <div className="grid grid-rows-5 grid-cols-7 justify-items-center items-center h-full">
-          <CenaText
-            divStyles="row-start-1 row-end-6 h-full grid grid-rows-5 items-center"
-            textStyles="text-base lg:text-xl h-fit"
-          ></CenaText>
+          <CenaText divStyles="row-start-1 row-end-6 h-full grid grid-rows-5 items-center"></CenaText>
           <ButtonSegment
             styles={`col-start-2 ${styles}`}
             id="Hra"

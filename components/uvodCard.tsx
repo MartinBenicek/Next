@@ -22,7 +22,7 @@ const UvodCard = ({
           sizes="100vw"
           className="w-1/3 h-auto sm:w-1/4 md:w-1/2"
         />
-        <h1 className="text-white text-xl mt-4 lg:text-2xl xl:text-3xl md:hover:underline">
+        <h1 className="font-medium uppercase text-xl mt-4 lg:text-2xl xl:text-3xl md:hover:underline">
           {text}
         </h1>
       </span>

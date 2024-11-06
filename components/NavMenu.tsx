@@ -34,7 +34,7 @@ const NavMenu = ({ image, text }: { image: string; text: string }) => {
         <Image src={`/img/${image}.svg`} alt={text} fill={true} />
       </span>
       <div
-        className={`md:hidden fixed top-0 right-0 h-full w-full z-10 bg-gradient-to-r from-amber-800 via-amber-600 to-amber-800 text-white shadow-lg transform
+        className={`md:hidden fixed top-0 right-0 h-full w-full z-10 bg-gradient-to-r from-gradientDark via-gradientLight to-gradientDark shadow-lg transform
              ${menu ? "-translate-y-0" : "-translate-y-full"} transition-transform duration-500 ease-in-out`}
       >
         <div className="min-h-screen flex flex-col justify-center">

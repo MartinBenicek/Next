@@ -8,7 +8,7 @@ export default function RootLayout({
 }>) {
   return (
     <section className="flex flex-col min-h-screen">
-      <header className="flex items-center h-24 bg-gradient-to-r from-amber-800 via-amber-600 to-amber-800 justify-between">
+      <header className="flex items-center h-24 bg-gradient-to-r from-gradientDark via-gradientLight to-gradientDark justify-between">
         <HeaderComponent url="/" image="home" text="Domů"></HeaderComponent>
         <span className="flex justify-between mr-5">
           <span className="hidden md:flex">
@@ -32,7 +32,7 @@ export default function RootLayout({
         </span>
       </header>
       {children}
-      <footer className="bg-gradient-to-r from-amber-800 via-amber-600 to-amber-800 p-10">
+      <footer className="bg-gradient-to-r from-gradientDark via-gradientLight to-gradientDark p-10">
         <p>lmao</p>
       </footer>
     </section>

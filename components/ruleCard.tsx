@@ -20,12 +20,16 @@ export const RuleCard = ({
       >
         <h1>{ruleTitle}</h1>
         <div
-          className={`relative h-12 w-12 ${clickTriangle ? "rotate-0" : "rotate-90"} duration-300`}
+          className={`relative h-12 w-12 ${clickTriangle ? "rotate-0" : "rotate-90"} duration-150 ease-out`}
         >
           <Image src={"/img/triangle.svg"} alt="triangle" fill></Image>
         </div>
       </div>
-      <div className={`${clickTriangle ? "block" : "hidden"} pr-2`}>
+      <div
+        className={`overflow-hidden transform transition-all duration-150 ease-out ${
+          clickTriangle ? "opacity-100" : "max-h-0 opacity-0"
+        } pt-3 text-justify`}
+      >
         {ruleDescription}
       </div>
     </section>

@@ -20,7 +20,8 @@ const DivSection = ({ id }: { id: string }) => {
   const hlaseno = (id === "Sedma" || id === "Kilo") && (
     <span className={`flex w-full relative justify-around`}>
       <label
-        className={`${inputValues.checked ? "bg-checkboxGreen" : "bg-checkboxRed lg:hover:bg-checkboxGreenhover"} cursor-pointer block h-7 w-7 border-2 border-black border-solid content-['']  rounded-md `}
+        className={`cursor-pointer block h-7 w-7 border-2 border-black border-solid content-[''] rounded-md
+          ${inputValues.checked ? "bg-checkboxGreen" : "bg-checkboxRed lg:hover:bg-checkboxGreenhover"}`}
       >
         <input
           className="hidden"

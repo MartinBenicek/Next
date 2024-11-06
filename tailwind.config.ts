@@ -17,6 +17,8 @@ const config: Config = {
         checkboxRed: "#FF341C",
         checkboxGreen: "#7EE31A",
         checkboxGreenhover: "#adeb70",
+        gradientDark: "#f77600",
+        gradientLight: "#ff9d0e",
       },
     },
   },

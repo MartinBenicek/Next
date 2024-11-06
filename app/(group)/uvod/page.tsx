@@ -2,7 +2,7 @@ import { RuleCard } from "@/components/ruleCard";
 import React from "react";
 const Page = () => {
   return (
-    <main className="flex flex-col flex-grow items-center lg:py-10 gap-y-8">
+    <main className="flex flex-col flex-grow items-center py-5 lg:py-10 gap-y-8">
       <RuleCard ruleTitle="Definice" ruleDescription="Trumf - "></RuleCard>
       <RuleCard
         ruleTitle="Rozdělení hráčů"

@@ -14,7 +14,8 @@ const Winner = () => {
   return (
     <div className="row-start-3 flex justify-between w-full">
       <label
-        className={`${isPovinnostChecked && "bg-checkboxGreen"} lg:hover:bg-checkboxGreenhover cursor-pointer block h-7 w-7 border-2 border-black border-solid content-[''] rounded-md`}
+        className={`lg:hover:bg-checkboxGreenhover cursor-pointer block h-7 w-7 border-2 border-black border-solid content-[''] rounded-md
+          ${isPovinnostChecked && "bg-checkboxGreen"}`}
       >
         <input
           type="checkbox"
