@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Red_Hat_Display } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 
 const redHatDisplay = Red_Hat_Display({ subsets: ["latin", "latin-ext"] });
@@ -16,7 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={redHatDisplay.className}> {children}</body>
+      <body className={redHatDisplay.className}>
+        {children}
+        <SpeedInsights />
+      </body>
     </html>
   );
 }
