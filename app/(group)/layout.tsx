@@ -1,5 +1,6 @@
 import NavMenu from "@/components/NavMenu";
 import HeaderComponent from "../../components/HeaderComponent";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export default function RootLayout({
   children,
@@ -35,6 +36,7 @@ export default function RootLayout({
       <footer className="bg-gradient-to-r from-gradientDark via-gradientLight to-gradientDark p-10">
         <p>lmao</p>
       </footer>
+      <SpeedInsights />
     </section>
   );
 }
