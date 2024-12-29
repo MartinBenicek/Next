@@ -1,18 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const ButtonBox = ({
+  id,
   minimum,
   numberValue,
   styles,
+  show,
 }: {
+  id: string;
   minimum: number;
   numberValue: number;
   styles: string;
+  show: boolean;
 }) => {
   const [value, setValue] = useState(minimum);
   const handleIncrease = () => {
     setValue(value + numberValue);
   };
+
+  useEffect(() => {
+    if (!show) {
+      setValue(minimum);
+    }
+  }, [show]);
 
   const handleDecrease = () => {
     setValue(Math.max(value - numberValue, minimum));
@@ -39,6 +49,7 @@ const ButtonBox = ({
           className="absolute inset-0 rounded-md p-1 outline-none"
           value={value}
           onChange={handleChange}
+          id={id}
         />
       </label>
       <button

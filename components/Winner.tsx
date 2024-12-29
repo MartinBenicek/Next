@@ -1,36 +1,49 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const Winner = () => {
-  const [isPovinnostChecked, setIsPovinnostChecked] = useState(false);
-  const [isObranaChecked, setIsObranaChecked] = useState(false);
+const initialState = {
+  povinnost: false,
+  obrana: false,
+};
+
+const Winner = ({ id, show }: { id: string; show: boolean }) => {
+  const [isChecked, setIsChecked] = useState(initialState);
+
+  useEffect(() => {
+    if (!show) {
+      setIsChecked(initialState);
+    }
+  }, [show]);
+
   const handlePovinnostClick = () => {
-    setIsPovinnostChecked(true);
-    setIsObranaChecked(false);
+    setIsChecked({ povinnost: true, obrana: false });
   };
   const handleObranaClick = () => {
-    setIsPovinnostChecked(false);
-    setIsObranaChecked(true);
+    setIsChecked({ povinnost: false, obrana: true });
   };
   return (
-    <div className="row-start-3 flex justify-between w-full">
+    <div
+      className={`${id === "Hra" ? "row-start-2 sm:row-start-3" : ""} ${id === "Betl" ? "row-start-2 sm:row-start-3 md:row-start-2" : ""} ${id === "Durch" ? "row-start-2 sm:pt-3 md:pt-0" : ""} lg:row-start-3 flex justify-between w-full`}
+    >
       <label
         className={`lg:hover:bg-checkboxGreenhover cursor-pointer block h-7 w-7 border-2 border-black border-solid content-[''] rounded-md
-          ${isPovinnostChecked && "bg-checkboxGreen"}`}
+          ${isChecked.povinnost && "bg-checkboxGreen"}`}
       >
         <input
           type="checkbox"
           className="hidden"
-          checked={isPovinnostChecked}
+          id={`povinnost-${id}`}
+          checked={isChecked.povinnost}
           onChange={handlePovinnostClick}
         />
       </label>
       <label
-        className={`${isObranaChecked && "bg-checkboxGreen"} lg:hover:bg-checkboxGreenhover cursor-pointer block h-7 w-7 border-2 border-black border-solid content-[''] rounded-md`}
+        className={`${isChecked.obrana && "bg-checkboxGreen"} lg:hover:bg-checkboxGreenhover cursor-pointer block h-7 w-7 border-2 border-black border-solid content-[''] rounded-md`}
       >
         <input
           type="checkbox"
           className="hidden"
-          checked={isObranaChecked}
+          id={`obrana-${id}`}
+          checked={isChecked.obrana}
           onChange={handleObranaClick}
         />
       </label>

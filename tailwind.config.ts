@@ -20,6 +20,10 @@ const config: Config = {
         gradientDark: "#f77600",
         gradientLight: "#ff9d0e",
       },
+      gridTemplateRows: {
+        "12": "repeat(12, minmax(0, 1fr))",
+        "19": "repeat(19, minmax(0, 1fr))",
+      },
     },
   },
   plugins: [],

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import Winner from "./Winner";
 import ButtonBox from "./ButtonBox";
@@ -7,10 +7,18 @@ import ButtonBox from "./ButtonBox";
 const initialState = {
   checked: false,
   hlasenoValue: false,
+  flekValue: 0,
 };
 
-const DivSection = ({ id }: { id: string }) => {
+const DivSection = ({ id, show }: { id: string; show: boolean }) => {
   const [inputValues, setInputValues] = useState(initialState);
+
+  useEffect(() => {
+    if (!show) {
+      setInputValues(initialState);
+    }
+  }, [show]);
+
   const handleCheckboxClick = () => {
     setInputValues((prevState) => ({
       ...prevState,
@@ -39,13 +47,21 @@ const DivSection = ({ id }: { id: string }) => {
         minimum={100}
         styles="row-start-4"
         numberValue={10}
+        id="game-points"
+        show={show}
       ></ButtonBox>
     ) : null;
   return (
     <>
       {hlaseno}
-      <ButtonBox minimum={0} styles="row-start-2" numberValue={1}></ButtonBox>
-      <Winner></Winner>
+      <ButtonBox
+        minimum={0}
+        styles={` ${id === "Hra" ? "row-start-1 sm:row-start-2" : ""} ${id === "Betl" ? "row-start-1 sm:row-start-2 md:row-start-1 lg:row-start-2" : ""} ${id === "Durch" ? "row-start-1 lg:row-start-2 sm:pb-2 md:pb-0" : ""}`}
+        numberValue={1}
+        id={`${id}-flek`}
+        show={show}
+      ></ButtonBox>
+      <Winner id={id} show={show}></Winner>
       {body}
     </>
   );

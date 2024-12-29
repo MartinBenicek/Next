@@ -35,7 +35,7 @@ const NavMenu = ({ image, text }: { image: string; text: string }) => {
       </span>
       <div
         className={`md:hidden fixed top-0 right-0 h-full w-full z-10 bg-gradient-to-r from-gradientDark via-gradientLight to-gradientDark shadow-lg transform
-             ${menu ? "-translate-y-0" : "-translate-y-full"} transition-transform duration-500 ease-in-out`}
+             ${menu ? "translate-x-0" : "translate-x-full"} transition-transform duration-500 ease-in-out`}
       >
         <div className="min-h-screen flex flex-col justify-center">
           <button
