@@ -30,8 +30,8 @@ const Page = () => {
   const getData = (id: VisibilityKeys) => {
     const visibilityRules = {
       Hra: { Betl: false, Durch: false },
-      Sedma: { Betl: false, Durch: false },
-      Kilo: { Betl: false, Durch: false },
+      Sedma: { Hra: true, Betl: false, Durch: false },
+      Kilo: { Hra: true, Betl: false, Durch: false },
       Betl: {
         Hra: false,
         Sedma: false,
@@ -46,7 +46,7 @@ const Page = () => {
         Betl: false,
         "V-srdcich": false,
       },
-      "V-srdcich": { Betl: false, Durch: false },
+      "V-srdcich": { Hra: true, Betl: false, Durch: false },
     };
 
     const visibility = visibilityRules[id];

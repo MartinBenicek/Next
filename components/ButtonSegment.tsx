@@ -35,16 +35,10 @@ const ButtonSegment = ({
         id={id}
         data-selected={isGrid}
       >
-        {id}
+        {id === "V-srdcich" ? "V srdcích" : id}
       </button>
       <div
-        className={`${isGrid ? "grid" : "hidden"} 
-          ${id === "Hra" ? "row-span-2 grid-rows-2 sm:row-span-3 sm:grid-rows-3" : ""}
-          ${id === "Betl" ? "row-span-2 grid-rows-2 sm:row-span-3 sm:grid-rows-3 md:row-span-2 md:grid-rows-2 md:gap-y-8 lg:gap-0" : ""}
-          ${id === "Durch" ? "row-span-2 grid-rows-2 items-center md:gap-y-8 lg:gap-0" : ""}
-          ${id === "Sedma" ? "row-span-3 grid-rows-3" : ""}
-          ${id === "Kilo" ? "row-span-4 grid-rows-4" : ""}
-          lg:grid-rows-4 h-full lg:row-span-4 items-center justify-items-center`}
+        className={`${isGrid ? "grid" : "hidden"} ${id === "Hra" ? "row-span-2 grid-rows-2 sm:row-span-3 sm:grid-rows-3" : ""} ${id === "Betl" ? "row-span-2 grid-rows-2 sm:row-span-3 sm:grid-rows-3 md:row-span-2 md:grid-rows-2 md:gap-y-8 lg:gap-0" : ""} ${id === "Durch" ? "row-span-2 grid-rows-2 items-center md:gap-y-8 lg:gap-0" : ""} ${id === "Sedma" ? "row-span-3 grid-rows-3" : ""} ${id === "Kilo" ? "row-span-4 grid-rows-4" : ""} lg:grid-rows-4 h-full lg:row-span-4 items-center justify-items-center`}
       >
         {isHeart}
       </div>
