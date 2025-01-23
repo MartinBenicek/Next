@@ -94,9 +94,8 @@ const Calculate = () => {
     for (let i = 0; i < gameArray.length; i++) {
       const buttonData = gameArray[i].buttonData as HTMLElement | null;
       const statusTmp = buttonData?.getAttribute("data-selected");
-      if (statusTmp === "false" && i < gameArray.length - 1) {
-        console.log(i);
-        continue;
+      if (statusTmp === "true") {
+        break;
       }
       if (i === gameArray.length - 1) {
         return [false, "Nezadali jste žádnou hru"];
