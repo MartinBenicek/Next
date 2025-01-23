@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { createGame } from "@/app/server actions/games";
+import Toggle from "./toggle";
 
 interface GameData {
   buttonData: HTMLElement | null;
@@ -14,8 +16,9 @@ interface GameData {
 
 type GetDataResult = GameData[] | [false, string];
 
-function Calculate() {
+const Calculate = () => {
   const [result, setResult] = useState("");
+  const [toggle, setToggle] = useState(true);
   const getData = (): GetDataResult => {
     const Srdce = document.getElementById("V-srdcich");
     const gameArray: GameData[] = [
@@ -87,7 +90,18 @@ function Calculate() {
       },
       { buttonData: Srdce, statusInfo: null },
     ];
-    console.log(gameArray);
+
+    for (let i = 0; i < gameArray.length; i++) {
+      const buttonData = gameArray[i].buttonData as HTMLElement | null;
+      const statusTmp = buttonData?.getAttribute("data-selected");
+      if (statusTmp === "false" && i < gameArray.length - 1) {
+        console.log(i);
+        continue;
+      }
+      if (i === gameArray.length - 1) {
+        return [false, "Nezadali jste žádnou hru"];
+      }
+    }
 
     for (let i = 0; i < gameArray.length; i++) {
       const buttonData = gameArray[i].buttonData as HTMLElement | null;
@@ -117,8 +131,13 @@ function Calculate() {
     }
     return gameArray;
   };
-  const calculateResult = () => {
+  const calculateResult = async () => {
     let data = getData();
+    if (data[1] === "Nezadali jste žádnou hru") {
+      setResult("Nezadali jste žádnou hru");
+      return;
+    }
+
     if (data[0] === false) {
       setResult(`Nezadali jste ${data[1]} vítěze`);
       return;
@@ -128,6 +147,9 @@ function Calculate() {
 
     let povinnostPrice = 0;
     let obranaPrice = 0;
+    let TypHry = "";
+    let body = 0;
+    let hlaseno = "ne";
 
     for (let i = 0; i < data.length - 1; i++) {
       let tmp = data[i].statusInfo;
@@ -144,9 +166,12 @@ function Calculate() {
         data[i].hlasenaInfo === true
       ) {
         tmpPrice = tmpPrice * 2;
+        hlaseno = "ano";
       }
 
       const pocetBodu = parseInt(data[i].pocetBodu || "0", 10);
+      body = pocetBodu >= 100 ? pocetBodu : 0;
+
       if (data[i].hasOwnProperty("pocetBodu") && pocetBodu > 100) {
         let nadKilo = pocetBodu - 100;
         nadKilo /= 10;
@@ -163,6 +188,7 @@ function Calculate() {
     }
 
     let finalPrice = povinnostPrice - obranaPrice;
+    const dataPrice = finalPrice;
     if (data[5].statusInfo === "true") {
       finalPrice = finalPrice * 2;
     }
@@ -176,9 +202,30 @@ function Calculate() {
       calculateOutput = "Povinnost dává " + finalPrice + " každému";
     }
     setResult(calculateOutput);
+
+    if (data[1].statusInfo === "true" && data[2].statusInfo === "true") {
+      TypHry = "Stosedm";
+    } else if (data[1].statusInfo === "true") {
+      TypHry = "Sedma";
+    } else if (data[2].statusInfo === "true") {
+      TypHry = "Kilo";
+    } else if (data[0].statusInfo === "true") {
+      TypHry = "Hra";
+    } else if (data[3].statusInfo === "true") {
+      TypHry = "Betl";
+    } else if (data[4].statusInfo === "true") {
+      TypHry = "Durch";
+    }
+
+    if (toggle) {
+      createGame(dataPrice, TypHry, body, hlaseno);
+    }
   };
+
   return (
     <div className="flex flex-col items-center gap-6 pt-8 md:pt-0">
+      <h2 className="text-xl">Zapisovat do historie</h2>
+      <Toggle toggled={toggle} onToggle={setToggle} />
       <button
         className="border-2 border-orange-500 bg-orange-300 lg:hover:bg-orange-500 cursor-default border-solid rounded-md w-32 h-10"
         onClick={calculateResult}
@@ -188,6 +235,6 @@ function Calculate() {
       <p>Výsledek: {result}</p>
     </div>
   );
-}
+};
 
 export default Calculate;

@@ -64,7 +64,7 @@ const Page = () => {
     "lg:row-start-1 lg:row-end-7 grid lg:grid-rows-5 h-full justify-items-center items-center";
   return (
     <>
-      <main className="flex flex-grow flex-col items-center justify-center gap-12 md:gap-14 lg:gap-12 py-[5vh]">
+      <main className="flex flex-grow flex-col items-center justify-center gap-12 md:gap-14 lg:gap-5 py-[5vh]">
         <h1 className="text-3xl">Výpočet ceny</h1>
         <section className="lg:h-[40vh]">
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 grid-rows-19 sm:grid-rows-12 md:grid-rows-8 lg:grid-rows-5 justify-items-center items-center h-full gap-x-5 gap-y-12 sm:gap-y-16 md:gap-y-10 lg:gap-0">
