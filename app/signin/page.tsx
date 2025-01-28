@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { signIn, auth, providerMap } from "@/lib/auth";
 import { AuthError } from "next-auth";
 
-const SIGNIN_ERROR_URL = "/signin/error"; // Make sure to define this constant
+const SIGNIN_ERROR_URL = "/error"; // Make sure to define this constant
 
 export default async function SignInPage({
   searchParams,
@@ -92,7 +92,7 @@ export default async function SignInPage({
                     "use server";
                     try {
                       await signIn(provider.id, {
-                        redirectTo: searchParams?.callbackUrl ?? "",
+                        redirectTo: "/cena",
                       });
                     } catch (error) {
                       if (error instanceof AuthError) {

@@ -1,7 +1,6 @@
 import NavMenu from "@/components/NavMenu";
 import HeaderComponent from "../../components/HeaderComponent";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import SignIn from "@/components/sign-in";
 
 export default function RootLayout({
   children,
@@ -29,8 +28,17 @@ export default function RootLayout({
               image="penize"
               text="Cena"
             ></HeaderComponent>
+            <HeaderComponent
+              url="/signin"
+              image="penize"
+              text="Přihlásit se"
+            ></HeaderComponent>
+            <HeaderComponent
+              url="/signout"
+              image="penize"
+              text="Odhlásit se"
+            ></HeaderComponent>
           </span>
-          <SignIn />
           <NavMenu image="nav-closed" text="menu"></NavMenu>
         </span>
       </header>
