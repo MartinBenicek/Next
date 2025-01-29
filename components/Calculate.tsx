@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createGame } from "@/app/server actions/games";
 import Toggle from "./toggle";
+import { auth } from "@/lib/auth";
+import { User } from "next-auth";
+import getUser from "@/app/server actions/getUser";
 
 interface GameData {
   buttonData: HTMLElement | null;
@@ -17,8 +20,19 @@ interface GameData {
 type GetDataResult = GameData[] | [false, string];
 
 const Calculate = () => {
+  const [user, setUser] = useState<User | null | undefined>(null);
   const [result, setResult] = useState("");
   const [toggle, setToggle] = useState(true);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const user = await getUser();
+      setUser(user);
+    };
+
+    fetchUser();
+  }, []);
+
   const getData = (): GetDataResult => {
     const Srdce = document.getElementById("V-srdcich");
     const gameArray: GameData[] = [
@@ -216,15 +230,19 @@ const Calculate = () => {
       TypHry = "Durch";
     }
 
-    if (toggle) {
+    if (toggle && user) {
       createGame(dataPrice, TypHry, body, hlaseno);
     }
   };
 
   return (
     <div className="flex flex-col items-center gap-6 pt-8 md:pt-0">
-      <h2 className="text-xl">Zapisovat do historie</h2>
-      <Toggle toggled={toggle} onToggle={setToggle} />
+      {user && (
+        <>
+          <h2 className="text-xl">Zapisovat do historie</h2>
+          <Toggle toggled={toggle} onToggle={setToggle} />
+        </>
+      )}
       <button
         className="border-2 border-orange-500 bg-orange-300 lg:hover:bg-orange-500 cursor-default border-solid rounded-md w-32 h-10"
         onClick={calculateResult}

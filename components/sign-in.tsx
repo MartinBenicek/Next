@@ -3,13 +3,12 @@ import { signIn } from "@/lib/auth";
 export default function SignIn() {
   return (
     <form
-      action={async (formData) => {
+      action={async () => {
         "use server";
-        await signIn("google");
-        await signIn("resend", formData);
+        await signIn();
       }}
     >
-      <button type="submit">Signin</button>
+      <button type="submit">Přihlásit se</button>
     </form>
   );
 }
