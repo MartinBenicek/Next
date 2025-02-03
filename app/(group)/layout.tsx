@@ -42,7 +42,7 @@ export default async function RootLayout({
             ) : (
               <HeaderComponent
                 url="/signin"
-                image="SignIn"
+                image="signIn"
                 text="Přihlásit se"
               ></HeaderComponent>
             )}
