@@ -11,7 +11,7 @@ const HeaderComponent = ({
   text: string;
 }) => {
   return (
-    <Link href={url}>
+    <Link href={url} className="z-20">
       <span className="flex items-center px-5">
         <div className="relative w-10 h-10 mr-1">
           <Image src={`/img/${image}.svg`} alt={text} fill={true} />

@@ -19,19 +19,9 @@ interface GameData {
 
 type GetDataResult = GameData[] | [false, string];
 
-const Calculate = () => {
-  const [user, setUser] = useState<User | null | undefined>(null);
+const Calculate = ({ user }: { user: User | undefined }) => {
   const [result, setResult] = useState("");
   const [toggle, setToggle] = useState(true);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const user = await getUser();
-      setUser(user);
-    };
-
-    fetchUser();
-  }, []);
 
   const getData = (): GetDataResult => {
     const Srdce = document.getElementById("V-srdcich");

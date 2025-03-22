@@ -1,21 +1,21 @@
 import NextAuth from "next-auth";
-import Credentials from "next-auth/providers/credentials";
 import type { Provider } from "next-auth/providers";
 import Google from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "./db";
+import Nodemailer from "next-auth/providers/nodemailer";
 
 const providers: Provider[] = [
-  Credentials({
-    credentials: { password: { label: "Password", type: "password" } },
-    authorize(c) {
-      if (c.password !== "password") return null;
-      return {
-        id: "test",
-        name: "Test User",
-        email: "test@example.com",
-      };
+  Nodemailer({
+    server: {
+      host: process.env.EMAIL_SERVER_HOST,
+      port: process.env.EMAIL_SERVER_PORT,
+      auth: {
+        user: process.env.EMAIL_SERVER_USER,
+        pass: process.env.EMAIL_SERVER_PASSWORD,
+      },
     },
+    from: process.env.EMAIL_FROM,
   }),
   Google,
 ];
@@ -34,9 +34,4 @@ export const providerMap = providers
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers,
   adapter: PrismaAdapter(prisma),
-  pages: {
-    signIn: "/signin",
-    signOut: "/signout",
-    error: "/error",
-  },
 });
