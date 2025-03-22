@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import DivSection from "./DivSection";
-import { VisibilityKeys } from "@/app/(group)/cena/page";
+import { VisibilityKeys } from "./PricePage";
 
 const ButtonSegment = ({
   id,
