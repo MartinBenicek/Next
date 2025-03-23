@@ -3,6 +3,24 @@ import HeaderComponent from "../../components/HeaderComponent";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { auth } from "@/lib/auth";
 
+/*
+                    <div>
+                  <HeaderComponent
+                    url="/api/auth/signout"
+                    image="signOut"
+                    text="Odhlásit se"
+                  ></HeaderComponent>
+                  <Link href={"/"} className="z-20">
+                    <span className="flex items-center px-5">
+                      <div className="relative w-10 h-10 mr-1">
+                        <Image src={`/img/signOut.svg`} alt="sign out" fill />
+                      </div>
+                      <p className="text-2xl hover:underline">Odhlásit se</p>
+                    </span>
+                  </Link>
+                  </div>
+                  */
+
 export default async function RootLayout({
   children,
 }: Readonly<{
@@ -43,6 +61,13 @@ export default async function RootLayout({
                   url="/api/auth/signin"
                   image="signIn"
                   text="Přihlásit se"
+                ></HeaderComponent>
+              )}
+              {user && (
+                <HeaderComponent
+                  url={`/${user.id}`}
+                  image="userIcon"
+                  text=""
                 ></HeaderComponent>
               )}
             </div>
