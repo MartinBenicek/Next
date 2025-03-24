@@ -12,7 +12,7 @@ export default function Home() {
       <main className="flex flex-col lg:flex-row min-h-screen justify-evenly items-center md:flex-row bg-gradient-to-r from-gradientDark via-gradientLight to-gradientDark">
         <Link
           href={"/cena"}
-          className="relative text-2xl lg:text-3xl xl:text-4xl flex flex-col items-center justify-center md:gap-5"
+          className="relative text-2xl lg:text-3xl xl:text-4xl flex flex-col items-center justify-center md:gap-5 hover:underline"
         >
           <Image
             src={uvod}
@@ -23,7 +23,7 @@ export default function Home() {
         </Link>
         <Link
           href={"/cena"}
-          className="relative text-2xl lg:text-3xl xl:text-4xl flex flex-col items-center justify-center md:gap-5"
+          className="relative text-2xl lg:text-3xl xl:text-4xl flex flex-col items-center justify-center md:gap-5 hover:underline"
         >
           <Image
             src={pocitadlo}
@@ -34,7 +34,7 @@ export default function Home() {
         </Link>
         <Link
           href={"/cena"}
-          className="relative text-2xl lg:text-3xl xl:text-4xl flex flex-col items-center justify-center md:gap-5"
+          className="relative text-2xl lg:text-3xl xl:text-4xl flex flex-col items-center justify-center md:gap-5 hover:underline"
         >
           <Image
             src={penize}

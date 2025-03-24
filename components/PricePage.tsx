@@ -57,10 +57,7 @@ const PricePage = ({ user }: { user: User | undefined }) => {
       [id]: !s[id],
     }));
   };
-  const [toggle, setToggle] = useState(false);
-  const handleButtonClick = () => {
-    setToggle(!toggle);
-  };
+
   const styles =
     "lg:row-start-1 lg:row-end-7 grid lg:grid-rows-5 h-full justify-items-center items-center";
   return (

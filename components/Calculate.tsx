@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { createGame } from "@/app/server actions/games";
 import Toggle from "./toggle";
-import { auth } from "@/lib/auth";
 import { User } from "next-auth";
-import getUser from "@/app/server actions/getUser";
+
+const initialState = {
+  povinnost: false,
+  obrana: false,
+};
 
 interface GameData {
   buttonData: HTMLElement | null;
@@ -21,7 +24,19 @@ type GetDataResult = GameData[] | [false, string];
 
 const Calculate = ({ user }: { user: User | undefined }) => {
   const [result, setResult] = useState("");
-  const [toggle, setToggle] = useState(true);
+  const [toggle, setToggle] = useState(false);
+  const [povinnost, setPovinnost] = useState<boolean | null>(null);
+  const [isChecked, setIsChecked] = useState(initialState);
+
+  const handlePovinnostClick = () => {
+    setIsChecked({ povinnost: true, obrana: false });
+    setPovinnost(true);
+  };
+
+  const handleObranaClick = () => {
+    setIsChecked({ povinnost: false, obrana: true });
+    setPovinnost(false);
+  };
 
   const getData = (): GetDataResult => {
     const Srdce = document.getElementById("V-srdcich");
@@ -135,6 +150,10 @@ const Calculate = ({ user }: { user: User | undefined }) => {
     return gameArray;
   };
   const calculateResult = async () => {
+    if (povinnost === null) {
+      setResult("Nezvolili jste roli");
+      return;
+    }
     let data = getData();
     if (data[1] === "Nezadali jste žádnou hru") {
       setResult("Nezadali jste žádnou hru");
@@ -191,20 +210,43 @@ const Calculate = ({ user }: { user: User | undefined }) => {
     }
 
     let finalPrice = povinnostPrice - obranaPrice;
-    const dataPrice = finalPrice;
+    let dataPrice;
     if (data[5].statusInfo === "true") {
       finalPrice = finalPrice * 2;
     }
     let calculateOutput;
-    if (finalPrice > 0) {
-      calculateOutput = "Povinnost dostává " + finalPrice + " od každého";
-    } else if (finalPrice === 0) {
-      calculateOutput = "Je to remíza";
+
+    if (!user) {
+      if (finalPrice > 0) {
+        calculateOutput = "Povinnost dostává " + finalPrice + " od každého";
+      } else if (finalPrice === 0) {
+        calculateOutput = "Je to remíza";
+      } else {
+        finalPrice = finalPrice * -1;
+        calculateOutput = "Povinnost dává " + finalPrice + " každému";
+      }
+      setResult(calculateOutput);
     } else {
-      finalPrice = finalPrice * -1;
-      calculateOutput = "Povinnost dává " + finalPrice + " každému";
+      if (finalPrice > 0 && povinnost) {
+        calculateOutput = "Dostáváte " + finalPrice + " od každého";
+        dataPrice = finalPrice * 2;
+      } else if (finalPrice > 0 && !povinnost) {
+        calculateOutput = "Dáváte " + finalPrice + " povinnosti";
+        dataPrice = finalPrice * -1;
+      } else if (finalPrice < 0 && povinnost) {
+        finalPrice = finalPrice * -1;
+        calculateOutput = "Dáváte " + finalPrice + " každému";
+        dataPrice = finalPrice * -2;
+      } else if (finalPrice < 0 && !povinnost) {
+        finalPrice = finalPrice * -1;
+        calculateOutput = "Dostáváte " + finalPrice + " od povinnosti";
+        dataPrice = finalPrice;
+      } else {
+        calculateOutput = "Je to remíza";
+        dataPrice = 0;
+      }
+      setResult(calculateOutput);
     }
-    setResult(calculateOutput);
 
     if (data[1].statusInfo === "true" && data[2].statusInfo === "true") {
       TypHry = "Stosedm";
@@ -221,16 +263,47 @@ const Calculate = ({ user }: { user: User | undefined }) => {
     }
 
     if (toggle && user) {
-      createGame(dataPrice, TypHry, body, hlaseno);
+      createGame(dataPrice || 0, TypHry, body, hlaseno);
     }
   };
 
   return (
-    <div className="flex flex-col items-center gap-6 pt-8 md:pt-0">
+    <div className="flex flex-col items-center gap-7 pt-8 md:pt-0">
       {user && (
         <>
-          <h2 className="text-xl">Zapisovat do historie</h2>
-          <Toggle toggled={toggle} onToggle={setToggle} />
+          <div className="flex flex-col sm:flex-row justify-center gap-5 sm:gap-10 md:gap-28 lg:gap-40 text-xl">
+            <div className="flex flex-col justify-between items-center space-y-5">
+              <h2>Zapisovat do historie</h2>
+              <Toggle toggled={toggle} onToggle={setToggle} />
+            </div>
+            <div className="text-center">
+              <h2>Vaše role</h2>
+              <p className="text-xs">Povinnost/obrana</p>
+              <div className="flex justify-center gap-5 pt-5">
+                <label
+                  className={`lg:hover:bg-checkboxGreenhover cursor-pointer block h-7 w-7 border-2 border-black border-solid content-[''] rounded-md
+                  ${isChecked.povinnost && "bg-checkboxGreen"}`}
+                >
+                  <input
+                    type="checkbox"
+                    className="hidden"
+                    checked={isChecked.povinnost}
+                    onChange={handlePovinnostClick}
+                  />
+                </label>
+                <label
+                  className={`${isChecked.obrana && "bg-checkboxGreen"} lg:hover:bg-checkboxGreenhover cursor-pointer block h-7 w-7 border-2 border-black border-solid content-[''] rounded-md`}
+                >
+                  <input
+                    type="checkbox"
+                    className="hidden"
+                    checked={isChecked.obrana}
+                    onChange={handleObranaClick}
+                  />
+                </label>
+              </div>
+            </div>
+          </div>
         </>
       )}
       <button
