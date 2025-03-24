@@ -18,3 +18,8 @@ export async function createGame(
   });
   return newGame;
 }
+
+export async function getGames() {
+  const games = await prisma.games.findMany();
+  return games;
+}
