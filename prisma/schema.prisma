@@ -20,6 +20,8 @@ model games {
   UhraneBody Int?
   Cena       Int
   created    DateTime @default(now())
+  playerID   String
+  players    User     @relation(fields: [playerID], references: [id])
 }
 
 model User {
@@ -33,6 +35,7 @@ model User {
   sessions      Session[]
   // Optional for WebAuthn support
   Authenticator Authenticator[]
+  games         games[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

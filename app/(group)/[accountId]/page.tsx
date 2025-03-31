@@ -1,5 +1,4 @@
 import { getGames } from "@/app/server actions/games";
-import getUser from "@/app/server actions/getUser";
 
 const page = async () => {
   const games = await getGames();
@@ -8,7 +7,7 @@ const page = async () => {
       <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold">Vaše hry</h1>
       <p className="text-xl lg:text-2xl">
         Celkové množstí peněz za hry:{" "}
-        {games.reduce((acc, game) => {
+        {games?.reduce((acc, game) => {
           return acc + game.Cena;
         }, 0)}
       </p>
@@ -22,36 +21,41 @@ const page = async () => {
               <th className="px-4 py-2">Uhrané Body</th>
               <th className="px-4 py-2">Cena</th>
               <th className="px-4 py-2">Datum</th>
+              <th className="px-4 py-2">Čas</th>
             </tr>
           </thead>
           <tbody>
-            {games
-              .slice()
-              .reverse()
-              .map((game, index) => (
-                <tr
-                  key={game.id}
-                  className="border-b border-orange-200 hover:bg-orange-50 text-center"
-                >
-                  <td className="px-4 py-3">{games.length - index}</td>
-                  <td className="px-4 py-3">{game.TypHry}</td>
-                  <td className="px-4 py-3">
-                    {(game.TypHry === "Sedma" ||
-                      game.TypHry === "Kilo" ||
-                      game.TypHry === "Stosedm") &&
-                      game.Hlaseno}
-                  </td>
-                  <td className="px-4 py-3">
-                    {game.UhraneBody && game.UhraneBody > 0
-                      ? game.UhraneBody
-                      : ""}
-                  </td>
-                  <td className="px-4 py-3">{game.Cena}</td>
-                  <td className="px-4 py-3">
-                    {game.created.toLocaleDateString()}
-                  </td>
-                </tr>
-              ))}
+            {games &&
+              games
+                .slice()
+                .reverse()
+                .map((game, index) => (
+                  <tr
+                    key={game.id}
+                    className="border-b border-orange-200 hover:bg-orange-50 text-center"
+                  >
+                    <td className="px-4 py-3">{games.length - index}</td>
+                    <td className="px-4 py-3">{game.TypHry}</td>
+                    <td className="px-4 py-3">
+                      {(game.TypHry === "Sedma" ||
+                        game.TypHry === "Kilo" ||
+                        game.TypHry === "Stosedm") &&
+                        game.Hlaseno}
+                    </td>
+                    <td className="px-4 py-3">
+                      {game.UhraneBody && game.UhraneBody > 0
+                        ? game.UhraneBody
+                        : ""}
+                    </td>
+                    <td className="px-4 py-3">{game.Cena}</td>
+                    <td className="px-4 py-3">
+                      {game.created.toLocaleDateString()} {/*čas*/}
+                    </td>
+                    <td className="px-4 py-3">
+                      {game.created.toLocaleTimeString()}
+                    </td>
+                  </tr>
+                ))}
           </tbody>
         </table>
       </div>
