@@ -67,7 +67,7 @@ export default async function RootLayout({
                 <HeaderComponent
                   url={`/${user.id}`}
                   image="userIcon"
-                  text=""
+                  text="Uživatel"
                 ></HeaderComponent>
               )}
             </div>

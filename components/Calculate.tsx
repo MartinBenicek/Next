@@ -150,7 +150,7 @@ const Calculate = ({ user }: { user: User | undefined }) => {
     return gameArray;
   };
   const calculateResult = async () => {
-    if (povinnost === null) {
+    if (user && povinnost === null) {
       setResult("Nezvolili jste roli");
       return;
     }

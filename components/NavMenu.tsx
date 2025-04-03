@@ -7,6 +7,7 @@ import pocitadlo from "@/public/img/pocitadlo.svg";
 import penize from "@/public/img/penize.svg";
 import prihlaseni from "@/public/img/signIn.svg";
 import odhlaseni from "@/public/img/signOut.svg";
+import userIcon from "@/public/img/userIcon.svg";
 import { User } from "next-auth";
 
 const NavMenu = ({ user }: { user: User | undefined }) => {
@@ -23,7 +24,20 @@ const NavMenu = ({ user }: { user: User | undefined }) => {
     };
   }, [menu]);
   return (
-    <>
+    <div className="flex items-center justify-between gap-4">
+      {user && (
+        <Link
+          href={`/${user.id}`}
+          className={`z-30 transition-all duration-300 transform ${
+            menu ? "opacity-100 visible" : "opacity-0 invisible"
+          }`}
+          onClick={() => setMenu(!menu)}
+        >
+          <div className="relative w-10 h-10">
+            <Image src={userIcon} alt="Uživatel" fill={true} />
+          </div>
+        </Link>
+      )}
       <div
         className="relative z-30 h-6 w-7 cursor-pointer lg:hidden"
         onClick={() => setMenu(!menu)}
@@ -46,7 +60,7 @@ const NavMenu = ({ user }: { user: User | undefined }) => {
       </div>
       <div
         className={`lg:hidden fixed top-0 right-0 z-20 h-full w-full bg-gradient-to-r from-gradientDark via-gradientLight to-gradientDark shadow-lg transform
-             ${menu ? "opacity-100 !visible" : "opacity-0 invisible"} transition-opacity duration-300 ease-in-out`}
+             ${menu ? "opacity-100 visible" : "opacity-0 invisible"} transition-all duration-300 ease-in-out`}
       >
         <div className="min-h-screen flex flex-col justify-center">
           <div className="flex flex-col items-center justify-center gap-10">
@@ -116,7 +130,7 @@ const NavMenu = ({ user }: { user: User | undefined }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

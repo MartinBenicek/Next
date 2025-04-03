@@ -33,5 +33,6 @@ export const providerMap = providers
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers,
+  session: { maxAge: 60 * 24 * 60 * 60 },
   adapter: PrismaAdapter(prisma),
 });

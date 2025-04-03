@@ -1,4 +1,3 @@
-import UvodCard from "@/components/uvodCard";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,7 +10,7 @@ export default function Home() {
     <>
       <main className="flex flex-col lg:flex-row min-h-screen justify-evenly items-center md:flex-row bg-gradient-to-r from-gradientDark via-gradientLight to-gradientDark">
         <Link
-          href={"/cena"}
+          href={"/uvod"}
           className="relative text-2xl lg:text-3xl xl:text-4xl flex flex-col items-center justify-center md:gap-5 hover:underline"
         >
           <Image
@@ -19,10 +18,10 @@ export default function Home() {
             alt="peníze"
             className="w-auto h-[20vh] xl:h-[30vh] object-cover"
           />
-          Cena
+          Úvod
         </Link>
         <Link
-          href={"/cena"}
+          href={"/pocitaniKaret"}
           className="relative text-2xl lg:text-3xl xl:text-4xl flex flex-col items-center justify-center md:gap-5 hover:underline"
         >
           <Image
