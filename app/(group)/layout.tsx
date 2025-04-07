@@ -2,24 +2,14 @@ import NavMenu from "@/components/NavMenu";
 import HeaderComponent from "../../components/HeaderComponent";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { auth } from "@/lib/auth";
-
-/*
-                    <div>
-                  <HeaderComponent
-                    url="/api/auth/signout"
-                    image="signOut"
-                    text="Odhlásit se"
-                  ></HeaderComponent>
-                  <Link href={"/"} className="z-20">
-                    <span className="flex items-center px-5">
-                      <div className="relative w-10 h-10 mr-1">
-                        <Image src={`/img/signOut.svg`} alt="sign out" fill />
-                      </div>
-                      <p className="text-2xl hover:underline">Odhlásit se</p>
-                    </span>
-                  </Link>
-                  </div>
-                  */
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuItem,
+  DropdownMenuContent,
+} from "@/components/ui/dropdown-menu";
+import Image from "next/image";
+import userIcon from "@/public/img/userIcon.svg";
 
 export default async function RootLayout({
   children,
@@ -31,7 +21,7 @@ export default async function RootLayout({
   return (
     <section className="flex flex-col relative min-h-screen">
       <div className="fixed w-full z-20">
-        <header className="flex items-center h-[10vh] bg-gradient-to-r from-gradientDark via-gradientLight to-gradientDark justify-between">
+        <header className="flex items-center h-[10vh] px-[3vw] bg-gradient-to-r from-gradientDark via-gradientLight to-gradientDark justify-between">
           <HeaderComponent url="/" image="home" text="Domů"></HeaderComponent>
           <div className="flex justify-between mr-5">
             <div className="hidden lg:flex">
@@ -50,26 +40,41 @@ export default async function RootLayout({
                 image="penize"
                 text="Cena"
               ></HeaderComponent>
-              {user ? (
-                <HeaderComponent
-                  url="/api/auth/signout"
-                  image="signOut"
-                  text="Odhlásit se"
-                ></HeaderComponent>
-              ) : (
-                <HeaderComponent
-                  url="/api/auth/signin"
-                  image="signIn"
-                  text="Přihlásit se"
-                ></HeaderComponent>
-              )}
-              {user && (
-                <HeaderComponent
-                  url={`/${user.id}`}
-                  image="userIcon"
-                  text="Uživatel"
-                ></HeaderComponent>
-              )}
+              <DropdownMenu aria-label="Static Actions" modal={false}>
+                <DropdownMenuTrigger asChild className="cursor-pointer ml-2">
+                  <Image
+                    src={userIcon}
+                    alt="user"
+                    className="w-10 h-10"
+                  ></Image>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem className="flex flex-col">
+                    {user && (
+                      <HeaderComponent
+                        url={`/${user.id}`}
+                        image="games"
+                        text="Vaše hry"
+                      ></HeaderComponent>
+                    )}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="flex flex-col">
+                    {user ? (
+                      <HeaderComponent
+                        url="/api/auth/signout"
+                        image="signOut"
+                        text="Odhlásit se"
+                      ></HeaderComponent>
+                    ) : (
+                      <HeaderComponent
+                        url="/api/auth/signin"
+                        image="signIn"
+                        text="Přihlásit se"
+                      ></HeaderComponent>
+                    )}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
             <NavMenu user={user}></NavMenu>
           </div>

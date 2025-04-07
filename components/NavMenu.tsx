@@ -5,10 +5,15 @@ import Link from "next/link";
 import uvod from "@/public/img/uvod.svg";
 import pocitadlo from "@/public/img/pocitadlo.svg";
 import penize from "@/public/img/penize.svg";
-import prihlaseni from "@/public/img/signIn.svg";
-import odhlaseni from "@/public/img/signOut.svg";
 import userIcon from "@/public/img/userIcon.svg";
 import { User } from "next-auth";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@radix-ui/react-dropdown-menu";
+import HeaderComponent from "./HeaderComponent";
 
 const NavMenu = ({ user }: { user: User | undefined }) => {
   const [menu, setMenu] = useState(false);
@@ -24,20 +29,56 @@ const NavMenu = ({ user }: { user: User | undefined }) => {
     };
   }, [menu]);
   return (
-    <div className="flex items-center justify-between gap-4">
+    <div className="flex items-center justify-between gap-4 lg:w-0 lg:h-0">
       {user && (
-        <Link
-          href={`/${user.id}`}
-          className={`z-30 transition-all duration-300 transform ${
-            menu ? "opacity-100 visible" : "opacity-0 invisible"
-          }`}
-          onClick={() => setMenu(!menu)}
-        >
-          <div className="relative w-10 h-10">
-            <Image src={userIcon} alt="Uživatel" fill={true} />
-          </div>
-        </Link>
+        <>
+          {/*<Link
+            href={`/${user.id}`}
+            className={`z-30 transition-all duration-300 transform ${
+              menu ? "opacity-100 visible" : "opacity-0 invisible"
+            }`}
+            onClick={() => setMenu(!menu)}
+          >
+            <div className="relative w-10 h-10">
+              <Image src={userIcon} alt="Uživatel" fill={true} />
+            </div>
+          </Link>*/}
+        </>
       )}
+      <DropdownMenu aria-label="Static Actions" modal={false}>
+        <DropdownMenuTrigger
+          asChild
+          className={`cursor-pointer ml-2 z-30 transition-all duration-300 ease-in-out ${menu ? "opacity-100 visible" : "opacity-0 invisible"}`}
+        >
+          <Image src={userIcon} alt="user" className="w-10 h-10"></Image>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="z-30 bg-orange-200 shadow-lg rounded-2xl p-2">
+          <DropdownMenuItem>
+            <DropdownMenuItem>
+              {user && (
+                <HeaderComponent
+                  url={`/${user.id}`}
+                  image="games"
+                  text="Vaše hry"
+                ></HeaderComponent>
+              )}
+            </DropdownMenuItem>
+            {user ? (
+              <HeaderComponent
+                url="/api/auth/signout"
+                image="signOut"
+                text="Odhlásit se"
+              ></HeaderComponent>
+            ) : (
+              <HeaderComponent
+                url="/api/auth/signin"
+                image="signIn"
+                text="Přihlásit se"
+              ></HeaderComponent>
+            )}
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
       <div
         className="relative z-30 h-6 w-7 cursor-pointer lg:hidden"
         onClick={() => setMenu(!menu)}
@@ -58,6 +99,7 @@ const NavMenu = ({ user }: { user: User | undefined }) => {
           } bg-black`}
         ></span>
       </div>
+
       <div
         className={`lg:hidden fixed top-0 right-0 z-20 h-full w-full bg-gradient-to-r from-gradientDark via-gradientLight to-gradientDark shadow-lg transform
              ${menu ? "opacity-100 visible" : "opacity-0 invisible"} transition-all duration-300 ease-in-out`}
@@ -100,33 +142,6 @@ const NavMenu = ({ user }: { user: User | undefined }) => {
               />
               Vypočítání ceny
             </Link>
-            {user ? (
-              <Link
-                href={"/api/auth/signout"}
-                className="relative text-center"
-                onClick={() => setMenu(!menu)}
-              >
-                <Image
-                  src={odhlaseni}
-                  alt="odhlásit se"
-                  className="w-auto h-[15vh] object-cover"
-                />
-                Odhlásit se
-              </Link>
-            ) : (
-              <Link
-                href={"/api/auth/signin"}
-                className="relative text-center"
-                onClick={() => setMenu(!menu)}
-              >
-                <Image
-                  src={prihlaseni}
-                  alt="přihlásit se"
-                  className="w-auto h-[15vh] object-cover"
-                />
-                Přihlásit se
-              </Link>
-            )}
           </div>
         </div>
       </div>
