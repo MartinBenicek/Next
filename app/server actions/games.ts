@@ -1,7 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/db";
-import getUser from "./getUser";
+import getUser, { getUserGames } from "./getUser";
 import { revalidatePath } from "next/cache";
 
 export async function createGame(
@@ -31,20 +31,18 @@ export async function getGames() {
   const user = await getUser();
   const dbUser = await prisma.user.findFirst({
     where: { id: user?.id },
-    include: { games: true },
+    include: { games: { orderBy: { id: "desc" } } },
   });
   return dbUser?.games;
 }
 
-export async function updateGame(
-  gameId: number,
-  dataPrice: number,
-  TypHry: string,
-  body: number,
-  hlaseno: string
-) {
-  const user = await getUser();
-  if (!user?.id) {
+export async function updateGame(formData: FormData, gameId: number) {
+  const TypHry = formData.get("TypHry") as string;
+  const hlaseno = formData.get("Hlaseno") as string;
+  const body = parseInt(formData.get("UhraneBody") as string);
+  const dataPrice = parseInt(formData.get("Cena") as string);
+  const user = await getUserGames();
+  if (!user?.games.some((game) => game.id === gameId)) {
     return;
   }
   const updatedGame = await prisma.games.update({
@@ -61,8 +59,8 @@ export async function updateGame(
 }
 
 export async function deleteGame(id: number) {
-  const user = await getUser();
-  if (!user?.id) {
+  const user = await getUserGames();
+  if (!user?.games.some((game) => game.id === id)) {
     return;
   }
   const deletedGame = await prisma.games.delete({

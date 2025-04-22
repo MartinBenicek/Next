@@ -5,12 +5,12 @@ const page = async () => {
   const games = await getGames();
   return (
     <main className="flex flex-col items-center justify-center min-h-screen py-[5vh] gap-5">
-      <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold">Vaše hry</h1>
+      <h1 className="text-3xl md:text-4xl lg:text-5xl">Vaše hry</h1>
       {games && games.length > 0 ? (
         <p className="text-xl lg:text-2xl">
           Celkové množstí peněz za hry:{" "}
           {games && games.length > 0
-            ? games.reduce((acc, game) => {
+            ? games.slice().reduce((acc, game) => {
                 return acc + game.Cena;
               }, 0)
             : null}
@@ -37,40 +37,34 @@ const page = async () => {
             </thead>
             <tbody>
               {games &&
-                games
-                  .slice()
-                  .reverse()
-                  .map((game, index) => (
-                    <tr
-                      key={game.id}
-                      className="border-b border-orange-200 hover:bg-orange-50 text-center"
-                    >
-                      <td className="px-4 py-3">{games.length - index}</td>
-                      <td className="px-4 py-3">{game.TypHry}</td>
-                      <td className="px-4 py-3">
-                        {(game.TypHry === "Sedma" ||
-                          game.TypHry === "Kilo" ||
-                          game.TypHry === "Stosedm") &&
-                          game.Hlaseno}
-                      </td>
-                      <td className="px-4 py-3">
-                        {game.UhraneBody && game.UhraneBody > 0
-                          ? game.UhraneBody
-                          : ""}
-                      </td>
-                      <td className="px-4 py-3">{game.Cena}</td>
-                      <td className="px-4 py-3">
-                        {game.created.toLocaleDateString("cs-CZ")}
-                      </td>
-                      <td className="px-4 py-3">
-                        {game.created.toLocaleTimeString("cs-CZ")}
-                      </td>
-                      <EditAndDelete
-                        gameId={game.id}
-                        index={games.length - index}
-                      />
-                    </tr>
-                  ))}
+                games.map((game, index) => (
+                  <tr
+                    key={game.id}
+                    className="border-b border-orange-200 hover:bg-orange-50 text-center"
+                  >
+                    <td className="px-4 py-3">{games.length - index}</td>
+                    <td className="px-4 py-3">{game.TypHry}</td>
+                    <td className="px-4 py-3">
+                      {(game.TypHry === "Sedma" ||
+                        game.TypHry === "Kilo" ||
+                        game.TypHry === "Stosedm") &&
+                        game.Hlaseno}
+                    </td>
+                    <td className="px-4 py-3">
+                      {game.UhraneBody && game.UhraneBody > 0
+                        ? game.UhraneBody
+                        : ""}
+                    </td>
+                    <td className="px-4 py-3">{game.Cena}</td>
+                    <td className="px-4 py-3">
+                      {game.created.toLocaleDateString("cs-CZ")}
+                    </td>
+                    <td className="px-4 py-3">
+                      {game.created.toLocaleTimeString("cs-CZ")}
+                    </td>
+                    <EditAndDelete game={game} index={games.length - index} />
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>

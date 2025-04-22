@@ -18,7 +18,7 @@ export const RuleCard = ({
           setClickTriangle(!clickTriangle);
         }}
       >
-        <h1>{ruleTitle}</h1>
+        <h2 className="lg:text-3xl">{ruleTitle}</h2>
         <div
           className={`relative h-12 w-12 ${clickTriangle ? "rotate-0" : "rotate-90"} duration-150 ease-out`}
         >
@@ -30,7 +30,16 @@ export const RuleCard = ({
           clickTriangle ? "opacity-100" : "max-h-0 opacity-0"
         } pt-3 text-justify`}
       >
-        {ruleDescription}
+        {ruleDescription.split("\n").map((line, index) => {
+          return (
+            <p
+              className={`lg:text-xl ${ruleDescription.includes("\n") && "mb-3"}`}
+              key={index}
+            >
+              {line}
+            </p>
+          );
+        })}
       </div>
     </section>
   );

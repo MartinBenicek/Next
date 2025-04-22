@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 import userIcon from "@/public/img/userIcon.svg";
+import Dropdown from "@/components/Dropdown";
 
 export default async function RootLayout({
   children,
@@ -26,9 +27,9 @@ export default async function RootLayout({
           <div className="flex justify-between mr-5">
             <div className="hidden lg:flex">
               <HeaderComponent
-                url="/uvod"
+                url="/pravidla"
                 image="uvod"
-                text="Úvod"
+                text="Pravidla"
               ></HeaderComponent>
               <HeaderComponent
                 url="/pocitaniKaret"
@@ -40,41 +41,7 @@ export default async function RootLayout({
                 image="penize"
                 text="Cena"
               ></HeaderComponent>
-              <DropdownMenu aria-label="Static Actions" modal={false}>
-                <DropdownMenuTrigger asChild className="cursor-pointer ml-2">
-                  <Image
-                    src={userIcon}
-                    alt="user"
-                    className="w-10 h-10"
-                  ></Image>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem className="flex flex-col">
-                    {user && (
-                      <HeaderComponent
-                        url={`/${user.id}`}
-                        image="games"
-                        text="Vaše hry"
-                      ></HeaderComponent>
-                    )}
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="flex flex-col">
-                    {user ? (
-                      <HeaderComponent
-                        url="/api/auth/signout"
-                        image="signOut"
-                        text="Odhlásit se"
-                      ></HeaderComponent>
-                    ) : (
-                      <HeaderComponent
-                        url="/api/auth/signin"
-                        image="signIn"
-                        text="Přihlásit se"
-                      ></HeaderComponent>
-                    )}
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <Dropdown user={user}></Dropdown>
             </div>
             <NavMenu user={user}></NavMenu>
           </div>

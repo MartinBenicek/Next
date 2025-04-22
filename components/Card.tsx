@@ -16,14 +16,14 @@ const Card = ({
   }, [click]);
   return (
     <li
-      className={`relative h-32 w-24 shadow-2x ${clicked ? `grayscale` : ``}`}
+      className={`relative h-32 w-20 shadow-2xl ${clicked ? `grayscale` : ``}`}
       onClick={() => setClicked(!clicked)}
     >
       <div
-        className={`absolute w-full h-full rounded-2xl ${clicked ? `opacity-50 bg-stone-400` : ``} grayScaler opacity-50 z-10`}
+        className={`absolute w-full h-full rounded-xl ${clicked ? `opacity-50 bg-stone-400` : ``} grayScaler opacity-50 z-10`}
       ></div>
       <Image
-        src={`/img/cards/nicubunu_White_deck_${name}_of_${suit}.svg`}
+        src={`/img/cards/${name}_${suit}.png`}
         alt={name}
         fill={true}
       ></Image>

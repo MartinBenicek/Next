@@ -17,6 +17,7 @@ import HeaderComponent from "./HeaderComponent";
 
 const NavMenu = ({ user }: { user: User | undefined }) => {
   const [menu, setMenu] = useState(false);
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     if (menu) {
       document.body.style.overflow = "hidden";
@@ -30,22 +31,12 @@ const NavMenu = ({ user }: { user: User | undefined }) => {
   }, [menu]);
   return (
     <div className="flex items-center justify-between gap-4 lg:w-0 lg:h-0">
-      {user && (
-        <>
-          {/*<Link
-            href={`/${user.id}`}
-            className={`z-30 transition-all duration-300 transform ${
-              menu ? "opacity-100 visible" : "opacity-0 invisible"
-            }`}
-            onClick={() => setMenu(!menu)}
-          >
-            <div className="relative w-10 h-10">
-              <Image src={userIcon} alt="Uživatel" fill={true} />
-            </div>
-          </Link>*/}
-        </>
-      )}
-      <DropdownMenu aria-label="Static Actions" modal={false}>
+      <DropdownMenu
+        aria-label="Static Actions"
+        modal={false}
+        open={open}
+        onOpenChange={() => setOpen(!open)}
+      >
         <DropdownMenuTrigger
           asChild
           className={`cursor-pointer ml-2 z-30 transition-all duration-300 ease-in-out ${menu ? "opacity-100 visible" : "opacity-0 invisible"}`}
@@ -53,16 +44,26 @@ const NavMenu = ({ user }: { user: User | undefined }) => {
           <Image src={userIcon} alt="user" className="w-10 h-10"></Image>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="z-30 bg-orange-200 shadow-lg rounded-2xl p-2">
-          <DropdownMenuItem>
-            <DropdownMenuItem>
-              {user && (
-                <HeaderComponent
-                  url={`/${user.id}`}
-                  image="games"
-                  text="Vaše hry"
-                ></HeaderComponent>
-              )}
-            </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => {
+              setOpen(!open);
+              setMenu(false);
+            }}
+          >
+            {user && (
+              <HeaderComponent
+                url={`/${user.id}`}
+                image="games"
+                text="Vaše hry"
+              ></HeaderComponent>
+            )}
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => {
+              setOpen(!open);
+              setMenu(false);
+            }}
+          >
             {user ? (
               <HeaderComponent
                 url="/api/auth/signout"
@@ -107,38 +108,38 @@ const NavMenu = ({ user }: { user: User | undefined }) => {
         <div className="min-h-screen flex flex-col justify-center">
           <div className="flex flex-col items-center justify-center gap-10">
             <Link
-              href={`/uvod`}
-              className="relative text-center"
+              href={`/pravidla`}
+              className="relative text-center text-2xl"
               onClick={() => setMenu(!menu)}
             >
               <Image
                 src={uvod}
                 alt="úvod"
-                className="w-auto h-[15vh] object-cover"
+                className="w-auto h-[20vh] object-cover"
               />
-              Úvod
+              Pravidla
             </Link>
             <Link
               href={"/pocitaniKaret"}
-              className="relative text-center"
+              className="relative text-center text-2xl"
               onClick={() => setMenu(!menu)}
             >
               <Image
                 src={pocitadlo}
                 alt="počítání karet"
-                className="w-auto h-[15vh] object-cover"
+                className="w-auto h-[20vh] object-cover"
               />
               Počítání karet
             </Link>
             <Link
               href={"/cena"}
-              className="relative text-center"
+              className="relative text-center text-2xl"
               onClick={() => setMenu(!menu)}
             >
               <Image
                 src={penize}
                 alt="peníze"
-                className="w-auto h-[15vh] object-cover"
+                className="w-auto h-[20vh] object-cover"
               />
               Vypočítání ceny
             </Link>
