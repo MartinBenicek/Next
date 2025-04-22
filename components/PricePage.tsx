@@ -18,7 +18,13 @@ export type VisibilityKeys =
   | "Durch"
   | "V-srdcich";
 
-const PricePage = ({ user }: { user: User | undefined }) => {
+const PricePage = ({
+  user,
+  history,
+}: {
+  user: User | undefined;
+  history: boolean;
+}) => {
   const [show, setShow] = useState({
     Hra: false,
     Sedma: false,
@@ -112,7 +118,7 @@ const PricePage = ({ user }: { user: User | undefined }) => {
             ></ButtonSegment>
           </div>
         </section>
-        <Calculate user={user} />
+        <Calculate user={user} cookieHistory={history} />
       </main>
       <SpeedInsights />
     </>

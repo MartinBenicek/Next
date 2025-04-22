@@ -2,17 +2,17 @@ import * as React from "react";
 import { Check, X } from "lucide-react";
 
 export default function Toggle({
-  toggled = false,
+  toggled,
   onToggle,
 }: {
   toggled: boolean;
-  onToggle: (toggled: boolean) => void;
+  onToggle: Function;
 }) {
   return (
     <button
       role="switch"
       aria-checked={toggled}
-      onClick={() => onToggle?.(!toggled)}
+      onClick={() => onToggle()}
       className={`relative w-16 h-8 rounded-full transition-colors duration-200 ${
         toggled ? "bg-green-500" : "bg-red-500"
       }`}

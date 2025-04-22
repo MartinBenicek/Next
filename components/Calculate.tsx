@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useOptimistic, useState } from "react";
 import { createGame } from "@/app/server actions/games";
 import Toggle from "./toggle";
 import { User } from "next-auth";
+import setCookieHistory from "@/app/server actions/cookieData";
 
 const initialState = {
   povinnost: false,
@@ -22,9 +23,17 @@ interface GameData {
 
 type GetDataResult = GameData[] | [false, string];
 
-const Calculate = ({ user }: { user: User | undefined }) => {
+const Calculate = ({
+  user,
+  cookieHistory,
+}: {
+  user: User | undefined;
+  cookieHistory: boolean;
+}) => {
   const [result, setResult] = useState("");
-  const [toggle, setToggle] = useState(false);
+  const [history, setHistory] = useOptimistic(cookieHistory, (state) => {
+    return !state;
+  });
   const [povinnost, setPovinnost] = useState<boolean | null>(null);
   const [isChecked, setIsChecked] = useState(initialState);
 
@@ -262,7 +271,7 @@ const Calculate = ({ user }: { user: User | undefined }) => {
       TypHry = "Durch";
     }
 
-    if (toggle && user) {
+    if (history && user) {
       createGame(dataPrice || 0, TypHry, body, hlaseno);
     }
   };
@@ -274,7 +283,13 @@ const Calculate = ({ user }: { user: User | undefined }) => {
           <div className="flex flex-col sm:flex-row justify-center gap-5 sm:gap-10 md:gap-28 lg:gap-40 text-xl">
             <div className="flex flex-col justify-between items-center space-y-5">
               <h2>Zapisovat do historie</h2>
-              <Toggle toggled={toggle} onToggle={setToggle} />
+              <Toggle
+                toggled={history}
+                onToggle={() => {
+                  setHistory(!history);
+                  setCookieHistory(!history);
+                }}
+              />
             </div>
             <div className="text-center">
               <h2>Vaše role</h2>
