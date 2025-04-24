@@ -11,7 +11,7 @@ const Page = () => {
   };
   return (
     <>
-      <main className="grid grid-cols-2 sm:grid-cols-4 justify-items-center py-5 lg:grid-cols-1 lg:h-[80vh]">
+      <main className="grid grid-cols-2 sm:grid-cols-4 justify-items-center py-5 lg:flex lg:flex-col lg:flex-grow lg:gap-5 lg:justify-center lg:items-center">
         <button
           onClick={restart}
           className="absolute lg:relative bg-orange-300 rounded-lg h-10 w-20 border-solid border-2 transition-color duration-75 border-orange-500 lg:hover:bg-orange-500 transition-color lg:hover:text-white"

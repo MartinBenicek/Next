@@ -4,7 +4,7 @@ import EditAndDelete from "@/components/EditAndDelete";
 const page = async () => {
   const games = await getGames();
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen py-[5vh] gap-5">
+    <main className="flex flex-col items-center py-[5vh] gap-5">
       <h1 className="text-3xl md:text-4xl lg:text-5xl">Vaše hry</h1>
       {games && games.length > 0 ? (
         <p className="text-xl lg:text-2xl">

@@ -47,7 +47,9 @@ export default async function RootLayout({
           </div>
         </header>
       </div>
-      <div className="mt-[10vh] min-h-[80vh]">{children}</div>
+      <div className="mt-[10vh] min-h-[80vh] flex flex-col flex-grow">
+        {children}
+      </div>
       <footer className="bg-gradient-to-r from-gradientDark via-gradientLight to-gradientDark h-[10vh]">
         <p></p>
       </footer>
