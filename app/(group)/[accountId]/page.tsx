@@ -1,7 +1,18 @@
 import { getGames } from "@/app/server actions/games";
+import getUser from "@/app/server actions/getUser";
 import EditAndDelete from "@/components/EditAndDelete";
+import { redirect } from "next/navigation";
 
-const page = async () => {
+const page = async ({
+  params: paramsPromise,
+}: {
+  params: Promise<{ accountId: string }>;
+}) => {
+  const user = await getUser();
+  const params = await paramsPromise;
+  if (user?.id !== params.accountId) {
+    redirect("/");
+  }
   const games = await getGames();
   return (
     <main className="flex flex-col items-center py-[5vh] gap-5">

@@ -6,38 +6,57 @@ const ButtonBox = ({
   numberValue,
   styles,
   show,
+  initialValue,
 }: {
   id: string;
   minimum: number;
   numberValue: number;
   styles: string;
   show: boolean;
+  initialValue: number;
 }) => {
-  const [value, setValue] = useState(minimum);
+  const [value, setValue] = useState<number | string>(initialValue);
+
   const handleIncrease = () => {
-    setValue(value + numberValue);
+    setValue((prev) =>
+      typeof prev === "number" ? prev + numberValue : minimum + numberValue
+    );
+  };
+
+  const handleDecrease = () => {
+    setValue((prev) =>
+      typeof prev === "number" ? Math.max(prev - numberValue, minimum) : minimum
+    );
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    setValue(inputValue);
+  };
+
+  const handleBlur = () => {
+    if (value === "") {
+      setValue(initialValue);
+    }
+    if (typeof value === "string" && value !== "") {
+      const parsedValue = parseInt(value, 10);
+
+      if (!isNaN(parsedValue)) {
+        const roundingFactor = initialValue === 0 ? 1 : 10;
+        const adjustedValue = Math.max(parsedValue, minimum);
+        setValue(Math.round(adjustedValue / roundingFactor) * roundingFactor);
+      } else {
+        setValue(minimum);
+      }
+    }
   };
 
   useEffect(() => {
     if (!show) {
-      setValue(minimum);
+      setValue(initialValue);
     }
   }, [show]);
 
-  const handleDecrease = () => {
-    setValue(Math.max(value - numberValue, minimum));
-  };
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = parseInt(e.target.value, 10) || 0;
-    if (minimum === 0) {
-      if (value < minimum) {
-        value = minimum;
-      } else {
-        value = Math.round(value / 10) * 10;
-      }
-    }
-    setValue(value);
-  };
   return (
     <div
       className={`grid grid-cols-3 grid-rows-2 items-center gap-1 ${styles}`}
@@ -49,6 +68,7 @@ const ButtonBox = ({
           className="absolute inset-0 rounded-md p-1 outline-none"
           value={value}
           onChange={handleChange}
+          onBlur={handleBlur}
           id={id}
         />
       </label>

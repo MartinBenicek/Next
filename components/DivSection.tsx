@@ -49,6 +49,7 @@ const DivSection = ({ id, show }: { id: string; show: boolean }) => {
         numberValue={10}
         id="game-points"
         show={show}
+        initialValue={100}
       ></ButtonBox>
     ) : null;
   return (
@@ -60,6 +61,7 @@ const DivSection = ({ id, show }: { id: string; show: boolean }) => {
         numberValue={1}
         id={`${id}-flek`}
         show={show}
+        initialValue={0}
       ></ButtonBox>
       <Winner id={id} show={show}></Winner>
       {body}

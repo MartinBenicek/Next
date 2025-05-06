@@ -2,14 +2,6 @@ import NavMenu from "@/components/NavMenu";
 import HeaderComponent from "../../components/HeaderComponent";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { auth } from "@/lib/auth";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuItem,
-  DropdownMenuContent,
-} from "@/components/ui/dropdown-menu";
-import Image from "next/image";
-import userIcon from "@/public/img/userIcon.svg";
 import Dropdown from "@/components/Dropdown";
 
 export default async function RootLayout({

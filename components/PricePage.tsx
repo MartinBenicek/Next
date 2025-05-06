@@ -78,7 +78,26 @@ const PricePage = ({
   return (
     <>
       <main className="flex flex-grow flex-col items-center justify-center gap-12 md:gap-14 lg:gap-5 py-[4vh]">
-        <h1 className="text-3xl md:text-4xl lg:text-5xl">Výpočet ceny</h1>
+        <div className="flex items-center gap-5">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl">Výpočet ceny</h1>
+          <div className="relative group">
+            <span className="text-xl font-bold cursor-default">?</span>
+            <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-48 lg:w-96 p-2 z-10 bg-gray-800 text-white text-sm rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+              Jak použít výpočet ceny: <br />
+              <br />
+              Typ hry: Zaškrknete si co se všechno bylo odehrálo ve hře. Ke
+              každé sekci vyjou údaje kdo uhrál danou kategorii, co bylo
+              flekováno případě hlášeno a u kila kolik bodů odehráno. <br />
+              Hlášeno: Jestli že byla odehrána sedma nebo stovka tak je
+              automaticky tichá, při zaškrnutí tlačítka hlášeno se změní že byla
+              hlášená. <br />
+              Fleknuto: Zapíše se kolikrát byl daný typ hry flekován. <br />
+              Uhrál: Zde se zapíše kdo danou kategorii uhrál (levé tlačítko je
+              pro povinnost a pravé pro obrannu). <br />
+              Uhrané body: Zde se zapíše kolik bodů bylo uhráno u kila. <br />
+            </div>
+          </div>
+        </div>
         <section className="lg:h-[40vh]">
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 grid-rows-19 sm:grid-rows-12 md:grid-rows-8 lg:grid-rows-5 justify-items-center items-center h-full gap-x-5 gap-y-12 sm:gap-y-16 md:gap-y-10 lg:gap-0">
             <CenaText1 divStyles="md:row-start-1 md:row-end-6 h-full hidden md:grid md:grid-rows-5 items-center"></CenaText1>

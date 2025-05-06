@@ -4,7 +4,7 @@ import React from "react";
 const Page = () => {
   return (
     <>
-      <main className="flex flex-col flex-grow items-center py-5 lg:py-10 gap-y-8">
+      <main className="flex flex-col flex-grow items-center py-[4vh] lg:py-10 gap-y-8">
         <h1 className="text-3xl md:text-4xl lg:text-5xl">
           Pravidla voleného mariáše
         </h1>
