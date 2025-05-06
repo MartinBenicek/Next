@@ -1,6 +1,13 @@
 import { RuleCard } from "@/components/ruleCard";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Metadata } from "next";
 import React from "react";
+
+export const metadata: Metadata = {
+  title: "Pravidla Mariáše",
+  description: "Přehled pravidel voleného Mariáše.",
+};
+
 const Page = () => {
   return (
     <>

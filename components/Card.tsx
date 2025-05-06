@@ -22,11 +22,7 @@ const Card = ({
       <div
         className={`absolute w-full h-full rounded-xl ${clicked ? `opacity-50 bg-stone-400` : ``} opacity-50 z-10`}
       ></div>
-      <Image
-        src={`/img/cards/${name}_${suit}.PNG`}
-        alt={name}
-        fill={true}
-      ></Image>
+      <Image src={`/img/cards/${name}_${suit}.PNG`} alt={name} fill></Image>
     </li>
   );
 };

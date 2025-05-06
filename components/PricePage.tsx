@@ -82,19 +82,23 @@ const PricePage = ({
           <h1 className="text-3xl md:text-4xl lg:text-5xl">Výpočet ceny</h1>
           <div className="relative group">
             <span className="text-xl font-bold cursor-default">?</span>
-            <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-48 lg:w-96 p-2 z-10 bg-gray-800 text-white text-sm rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+            <div className="absolute left-1/3 transform -translate-x-1/2 mt-2 -ml-5 w-52 lg:w-96 p-2 z-10 bg-gray-800 text-white text-sm rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
               Jak použít výpočet ceny: <br />
               <br />
-              Typ hry: Zaškrknete si co se všechno bylo odehrálo ve hře. Ke
-              každé sekci vyjou údaje kdo uhrál danou kategorii, co bylo
-              flekováno případě hlášeno a u kila kolik bodů odehráno. <br />
-              Hlášeno: Jestli že byla odehrána sedma nebo stovka tak je
-              automaticky tichá, při zaškrnutí tlačítka hlášeno se změní že byla
-              hlášená. <br />
-              Fleknuto: Zapíše se kolikrát byl daný typ hry flekován. <br />
-              Uhrál: Zde se zapíše kdo danou kategorii uhrál (levé tlačítko je
-              pro povinnost a pravé pro obrannu). <br />
-              Uhrané body: Zde se zapíše kolik bodů bylo uhráno u kila. <br />
+              Typ hry: Zaškrknete si, co se všechno bylo odehrálo ve hře. Ke
+              každé sekci vyjdou údaje, kdo uhrál danou kategorii, co bylo
+              flekováno, případně hlášeno a u kila, kolik bodů uhráno. <br />
+              <br />
+              Hlášeno: Pokud byla odehrána sedma nebo stovka, tak je automaticky
+              tichá. Při zaškrnutí tlačítka hlášeno se změní, že byla hlášená.
+              <br />
+              <br />
+              Fleknuto: Zapíše se, kolikrát byl daný typ hry flekován. <br />
+              <br />
+              Uhrál: Zde se zaklikne, kdo danou kategorii uhrál (levé tlačítko
+              je pro povinnost a pravé pro tlačítko obranu). <br />
+              <br />
+              Uhrané body: Zde se zapíše kolik, bodů bylo uhráno u kila.
             </div>
           </div>
         </div>
