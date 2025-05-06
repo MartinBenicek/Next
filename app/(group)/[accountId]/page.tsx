@@ -60,7 +60,9 @@ const page = async () => {
                       {game.created.toLocaleDateString("cs-CZ")}
                     </td>
                     <td className="px-4 py-3">
-                      {game.created.toLocaleTimeString("cs-CZ")}
+                      {game.created.toLocaleTimeString("cs-CZ", {
+                        timeZone: "Europe/Prague",
+                      })}
                     </td>
                     <EditAndDelete game={game} index={games.length - index} />
                   </tr>

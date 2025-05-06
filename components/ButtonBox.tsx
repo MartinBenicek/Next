@@ -29,7 +29,7 @@ const ButtonBox = ({
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = parseInt(e.target.value, 10) || 0;
-    if (minimum === 100) {
+    if (minimum === 0) {
       if (value < minimum) {
         value = minimum;
       } else {

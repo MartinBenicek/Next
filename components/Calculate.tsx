@@ -1,4 +1,4 @@
-import React, { useEffect, useOptimistic, useState } from "react";
+import React, { useOptimistic, useState } from "react";
 import { createGame } from "@/app/server actions/games";
 import Toggle from "./toggle";
 import { User } from "next-auth";
@@ -45,6 +45,10 @@ const Calculate = ({
   const handleObranaClick = () => {
     setIsChecked({ povinnost: false, obrana: true });
     setPovinnost(false);
+  };
+
+  const calculateKilo = (number: number): number => {
+    return Math.ceil((90 - number) / 10);
   };
 
   const getData = (): GetDataResult => {
@@ -122,6 +126,9 @@ const Calculate = ({
     for (let i = 0; i < gameArray.length; i++) {
       const buttonData = gameArray[i].buttonData as HTMLElement | null;
       const statusTmp = buttonData?.getAttribute("data-selected");
+      if (i === 5 && statusTmp === "true") {
+        return [false, "Nemůžete hrát jen v srdcích"];
+      }
       if (statusTmp === "true") {
         break;
       }
@@ -158,12 +165,18 @@ const Calculate = ({
     }
     return gameArray;
   };
+
   const calculateResult = async () => {
     if (user && povinnost === null) {
       setResult("Nezvolili jste roli");
       return;
     }
     let data = getData();
+    if (data[1] === "Nemůžete hrát jen v srdcích") {
+      setResult("Nemůžete hrát jen v srdcích");
+      return;
+    }
+
     if (data[1] === "Nezadali jste žádnou hru") {
       setResult("Nezadali jste žádnou hru");
       return;
@@ -201,18 +214,117 @@ const Calculate = ({
       }
 
       const pocetBodu = parseInt(data[i].pocetBodu || "0", 10);
-      body = pocetBodu >= 100 ? pocetBodu : 0;
+      body = pocetBodu !== null ? pocetBodu : 0;
 
-      if (data[i].hasOwnProperty("pocetBodu") && pocetBodu > 100) {
-        let nadKilo = pocetBodu - 100;
-        nadKilo /= 10;
-        tmpPrice += nadKilo;
+      let kiloBody = pocetBodu < 100 ? pocetBodu : pocetBodu - 100;
+      let locked = false;
+
+      if (data[i].hasOwnProperty("pocetBodu") && pocetBodu !== 100) {
+        locked = true;
+        kiloBody /= 10;
+        if (pocetBodu <= 90) {
+          if (
+            data[i].winner?.[0] === true &&
+            data[i].winner?.[1] === false &&
+            !povinnost
+          ) {
+            obranaPrice -= tmpPrice;
+          } else if (
+            data[i].winner?.[0] === false &&
+            data[i].winner?.[1] === true &&
+            povinnost
+          ) {
+            povinnostPrice -= tmpPrice;
+          } else if (
+            data[i].winner?.[0] === false &&
+            data[i].winner?.[1] === true &&
+            povinnost
+          ) {
+            obranaPrice -= tmpPrice;
+          } else if (
+            data[i].winner?.[0] === false &&
+            data[i].winner?.[1] === true &&
+            !povinnost
+          ) {
+            povinnostPrice -= tmpPrice;
+          } else if (
+            data[i].winner?.[0] === true &&
+            data[i].winner?.[1] === false &&
+            data[0].winner?.[0] === true &&
+            data[0].winner?.[1] === false &&
+            povinnost
+          ) {
+            obranaPrice -= tmpPrice;
+          }
+        }
+        if (pocetBodu < 90) {
+          let podKilo = calculateKilo(pocetBodu);
+          if (
+            data[i].winner?.[0] === true &&
+            data[i].winner?.[1] === false &&
+            povinnost
+          ) {
+            povinnostPrice -= podKilo;
+          } else if (
+            data[i].winner?.[0] === false &&
+            data[i].winner?.[1] === true &&
+            !povinnost
+          ) {
+            obranaPrice -= podKilo;
+          } else if (
+            data[i].winner?.[0] === true &&
+            data[i].winner?.[1] === false &&
+            !povinnost
+          ) {
+            obranaPrice -= podKilo;
+          } else if (
+            data[i].winner?.[0] === false &&
+            data[i].winner?.[1] === true &&
+            povinnost
+          ) {
+            povinnostPrice -= podKilo;
+          }
+        }
+        if (pocetBodu > 100) {
+          tmpPrice += kiloBody;
+          if (
+            data[i].winner?.[0] === false &&
+            data[i].winner?.[1] === true &&
+            !povinnost
+          ) {
+            obranaPrice += tmpPrice;
+          } else if (
+            data[i].winner?.[0] === true &&
+            data[i].winner?.[1] === false &&
+            povinnost
+          ) {
+            povinnostPrice += tmpPrice;
+          } else if (
+            data[i].winner?.[0] === false &&
+            data[i].winner?.[1] === true &&
+            povinnost
+          ) {
+            obranaPrice += tmpPrice;
+          } else if (
+            data[i].winner?.[0] === true &&
+            data[i].winner?.[1] === false &&
+            !povinnost
+          ) {
+            povinnostPrice += tmpPrice;
+          }
+        }
       }
-      if (data[i].winner?.[0] === true && data[i].winner?.[1] === false) {
+
+      if (
+        data[i].winner?.[0] === true &&
+        data[i].winner?.[1] === false &&
+        !locked
+      ) {
         povinnostPrice += tmpPrice;
       } else if (
         data[i].winner?.[0] === false &&
-        data[i].winner?.[1] === true
+        data[i].winner?.[1] === true &&
+        !locked
       ) {
         obranaPrice += tmpPrice;
       }
@@ -278,49 +390,48 @@ const Calculate = ({
 
   return (
     <div className="flex flex-col items-center gap-7 pt-8 md:pt-0">
-      {user && (
-        <>
-          <div className="flex flex-col sm:flex-row justify-center gap-5 sm:gap-10 md:gap-28 lg:gap-40 text-xl">
-            <div className="flex flex-col justify-between items-center space-y-5">
-              <h2>Zapisovat do historie</h2>
-              <Toggle
-                toggled={history}
-                onToggle={() => {
-                  setHistory(!history);
-                  setCookieHistory(!history);
-                }}
-              />
-            </div>
-            <div className="text-center">
-              <h2>Vaše role</h2>
-              <p className="text-xs">Povinnost/obrana</p>
-              <div className="flex justify-center gap-5 pt-5">
-                <label
-                  className={`lg:hover:bg-checkboxGreenhover cursor-pointer block h-7 w-7 border-2 border-black border-solid content-[''] rounded-md
-                  ${isChecked.povinnost && "bg-checkboxGreen"}`}
-                >
-                  <input
-                    type="checkbox"
-                    className="hidden"
-                    checked={isChecked.povinnost}
-                    onChange={handlePovinnostClick}
-                  />
-                </label>
-                <label
-                  className={`${isChecked.obrana && "bg-checkboxGreen"} lg:hover:bg-checkboxGreenhover cursor-pointer block h-7 w-7 border-2 border-black border-solid content-[''] rounded-md`}
-                >
-                  <input
-                    type="checkbox"
-                    className="hidden"
-                    checked={isChecked.obrana}
-                    onChange={handleObranaClick}
-                  />
-                </label>
-              </div>
-            </div>
+      <div className="flex flex-col sm:flex-row justify-center gap-5 sm:gap-10 md:gap-28 lg:gap-40 text-xl">
+        {user && (
+          <div className="flex flex-col justify-between items-center space-y-5">
+            <h2>Zapisovat do historie</h2>
+            <Toggle
+              toggled={history}
+              onToggle={() => {
+                setHistory(!history);
+                setCookieHistory(!history);
+              }}
+            />
           </div>
-        </>
-      )}
+        )}
+        <div className="text-center">
+          <h2>Vaše role</h2>
+          <p className="text-xs">Povinnost/obrana</p>
+          <div className="flex justify-center gap-5 pt-5">
+            <label
+              className={`lg:hover:bg-checkboxGreenhover cursor-pointer block h-7 w-7 border-2 border-black border-solid content-[''] rounded-md
+                  ${isChecked.povinnost && "bg-checkboxGreen"}`}
+            >
+              <input
+                type="checkbox"
+                className="hidden"
+                checked={isChecked.povinnost}
+                onChange={handlePovinnostClick}
+              />
+            </label>
+            <label
+              className={`${isChecked.obrana && "bg-checkboxGreen"} lg:hover:bg-checkboxGreenhover cursor-pointer block h-7 w-7 border-2 border-black border-solid content-[''] rounded-md`}
+            >
+              <input
+                type="checkbox"
+                className="hidden"
+                checked={isChecked.obrana}
+                onChange={handleObranaClick}
+              />
+            </label>
+          </div>
+        </div>
+      </div>
+
       <button
         className="border-2 border-orange-500 bg-orange-300 lg:hover:bg-orange-500 cursor-default border-solid rounded-md w-32 h-10"
         onClick={calculateResult}

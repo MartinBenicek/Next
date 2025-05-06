@@ -20,7 +20,7 @@ const Card = ({
       onClick={() => setClicked(!clicked)}
     >
       <div
-        className={`absolute w-full h-full rounded-xl ${clicked ? `opacity-50 bg-stone-400` : ``} grayScaler opacity-50 z-10`}
+        className={`absolute w-full h-full rounded-xl ${clicked ? `opacity-50 bg-stone-400` : ``} opacity-50 z-10`}
       ></div>
       <Image
         src={`/img/cards/${name}_${suit}.PNG`}

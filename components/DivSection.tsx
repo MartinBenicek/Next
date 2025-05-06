@@ -44,7 +44,7 @@ const DivSection = ({ id, show }: { id: string; show: boolean }) => {
   const body =
     id === "Kilo" ? (
       <ButtonBox
-        minimum={100}
+        minimum={0}
         styles="row-start-4"
         numberValue={10}
         id="game-points"

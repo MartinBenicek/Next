@@ -57,11 +57,20 @@ const PricePage = ({
     };
 
     const visibility = visibilityRules[id];
-    setShow((s) => ({
-      ...s,
-      ...visibility,
-      [id]: !s[id],
-    }));
+    setShow((s) => {
+      if (!s[id]) {
+        return {
+          ...s,
+          ...visibility,
+          [id]: true,
+        };
+      } else {
+        return {
+          ...s,
+          [id]: false,
+        };
+      }
+    });
   };
 
   const styles =
