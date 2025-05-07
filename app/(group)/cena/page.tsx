@@ -4,7 +4,7 @@ import { Metadata } from "next";
 import { cookies } from "next/headers";
 
 export const metadata: Metadata = {
-  title: "Výpočet ceny hry",
+  title: "Výpočet ceny",
   description:
     "Automatický výpočet ceny podle typu hry, flekování a uhraných bodů.",
 };
