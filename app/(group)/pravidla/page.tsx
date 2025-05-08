@@ -51,10 +51,10 @@ const Page = () => {
           ruleTitle="Počítání bodů"
           ruleDescription={`Hláška - pokud má hráč na ruce Vršek a Krále od stejné barvy. Kdykoli dojde k zahrání jedné z těchto karet, hráč položí jen jednou jednoho z nich na svou hromádku (lícem nahoru) - obvykle je to Vršek\n
             Body se počátají jen u normální hry. Body se sečtou body a vyhodnotí se vítězství.\n
-            Každá desítka a eso ve štychu jsou za 10 bodů,\n
-            ten kdo sebral poslední štych získává 10 bodů, hra nemůže tak skončit s vyrovnanými body,
-            normální hláška je za 20 bodů,\n
-            trumfová hláška je za 40 bodů.\n`}
+            - Každá desítka a eso ve štychu jsou za 10 bodů.\n
+            - Ten kdo sebral poslední štych získává 10 bodů, hra nemůže tak skončit s vyrovnanými body.\n
+            - Normální hláška je za 20 bodů.\n
+            - Trumfová hláška je za 40 bodů.\n`}
         ></RuleCard>
         <RuleCard
           ruleTitle="Cenění her"
@@ -65,14 +65,14 @@ const Page = () => {
           ruleTitle="Sazba"
           ruleDescription={`
           - 1 korunu jako základní sazbu.\n
-          - 2 koruny za tichou Sedmu\n
-          - 2 koruny za tiché Kilo\n
-          - 4 koruny za hlášenou Sedmu\n
-          - 4 koruny za hlášené Kilo\n
-          - 1 koruna za každých 10 bodů nad 100\n
-          - 5 korun za Malého neboli Betl\n
-          - 10 korun za Velkého neboli Durch\n
-          - Pokud byly trumfy v srdcích, tak se vše dvojnásobí`}
+          - 2 koruny za tichou Sedmu.\n
+          - 2 koruny za tiché Kilo.\n
+          - 4 koruny za hlášenou Sedmu.\n
+          - 4 koruny za hlášené Kilo.\n
+          - 1 koruna za každých 10 bodů nad 100.\n
+          - 5 korun za Malého neboli Betl.\n
+          - 10 korun za Velkého neboli Durch.\n
+          - Pokud byly trumfy v srdcích, tak se vše dvojnásobí.`}
         ></RuleCard>
       </main>
       <SpeedInsights />
