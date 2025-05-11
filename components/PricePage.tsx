@@ -150,7 +150,11 @@ const PricePage = ({
             ></ButtonSegment>
           </div>
         </section>
-        <Calculate user={user} cookieHistory={history} />
+        <Calculate
+          user={user}
+          cookieHistory={history}
+          kiloVisibility={show["Kilo"]}
+        />
       </main>
       <SpeedInsights />
     </>

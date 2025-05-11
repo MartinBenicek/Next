@@ -1,4 +1,4 @@
-import React, { useOptimistic, useState } from "react";
+import React, { useEffect, useOptimistic, useState } from "react";
 import { createGame } from "@/app/server actions/games";
 import Toggle from "./toggle";
 import { User } from "next-auth";
@@ -26,9 +26,11 @@ type GetDataResult = GameData[] | [false, string];
 const Calculate = ({
   user,
   cookieHistory,
+  kiloVisibility,
 }: {
   user: User | undefined;
   cookieHistory: boolean;
+  kiloVisibility: boolean;
 }) => {
   const [result, setResult] = useState("");
   const [history, setHistory] = useOptimistic(cookieHistory, (state) => {
@@ -36,6 +38,11 @@ const Calculate = ({
   });
   const [povinnost, setPovinnost] = useState<boolean | null>(null);
   const [isChecked, setIsChecked] = useState(initialState);
+  const [kilo, setKilo] = useState(kiloVisibility);
+
+  useEffect(() => {
+    setKilo(kiloVisibility);
+  }, [kiloVisibility]);
 
   const handlePovinnostClick = () => {
     setIsChecked({ povinnost: true, obrana: false });
@@ -167,7 +174,7 @@ const Calculate = ({
   };
 
   const calculateResult = async () => {
-    if (user && povinnost === null) {
+    if ((user && povinnost === null) || (kilo === true && povinnost === null)) {
       setResult("Nezvolili jste roli");
       return;
     }
@@ -403,7 +410,10 @@ const Calculate = ({
             />
           </div>
         )}
-        <div className="text-center">
+
+        <div
+          className={`text-center ${kilo || user ? "visible" : "invisible"}`}
+        >
           <h2>Vaše role</h2>
           <p className="text-xs">Povinnost/obrana</p>
           <div className="flex justify-center gap-5 pt-5">
