@@ -448,7 +448,7 @@ const Calculate = ({
       >
         Vypočítat
       </button>
-      <p>Výsledek: {result}</p>
+      <p id="output">Výsledek: {result}</p>
     </div>
   );
 };

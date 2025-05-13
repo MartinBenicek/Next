@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description: "Zobrazení svých odehraných her v Mariáši.",
 };
 
-const page = async ({
+const Page = async ({
   params: paramsPromise,
 }: {
   params: Promise<{ accountId: string }>;
@@ -96,4 +96,4 @@ const page = async ({
   );
 };
 
-export default page;
+export default Page;

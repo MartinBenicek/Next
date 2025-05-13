@@ -38,6 +38,4 @@ next-env.d.ts
 .qodo
 
 #tests
-globalVariables.robot
-pravidlaPage.robot
-requirements.txt
+test

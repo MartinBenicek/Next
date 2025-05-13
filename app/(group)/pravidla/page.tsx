@@ -20,6 +20,7 @@ const Page = () => {
           ruleDescription={`Mariáš je tradiční karetní hra, která se těší velké oblibě zejména v Česku, na Slovensku, v Rakousku a Německu.\n
             Jde o strategickou karetní hru pro tři hráče, kde se jeden hráč (tzv. povinnost) postaví proti dvojici soupeřů (obrana).\n
 		        Cílem hry je získat co nejvíce bodů prostřednictvím štychů.`}
+          id="Marias"
         ></RuleCard>
         <RuleCard
           ruleTitle="Základní Pravidla"
@@ -27,17 +28,20 @@ const Page = () => {
           Přebíjet – pokud hráč může přebít nejvyšší kartu ve Štychu, musí ji zahrát.\n
           Trumfy - Trumfy jsou karty dané barvy, které jsou silnější než ostatní karty. Nejslabší trumfová karta je silnější než kterékoliv jiná netrumfová karta, a proto 	přebije i Esa. \n
           Hra se dělí na podružná „kola“, během kterých po směru hodinových ručiček jednotliví hráči odhodí vždy jednu kartu. Hráč, který sebere Štych, začíná další a pokládá 	první kartu, která určuje vynesenou barvu.`}
+          id="Rules"
         ></RuleCard>
         <RuleCard
           ruleTitle="Rozdávání karet"
           ruleDescription={`Hráč co míchá karty po zamíchání karet dá před hráčeč po pravici karty. Ten s nimi má 2 možnosti. Kopnout balíček kde chce nebo poklepat balíček.\n
           Při kopnutí balíčku si vezme hráč karty zpět a rozdává je po směru hodinových ručiček. První dá 7 karet hráči po levici (povinnosti) a potom rozdá zbytek balíčku po 5 kartách po směru hodinových ručiček. \n
           Při poklepání balíčku hráč rozdá 7 a 5 karet povinnosti, 10 karet po pravici a 10 karet sobě.`}
+          id="Cards"
         ></RuleCard>
         <RuleCard
           ruleTitle="Vybírání trumfů a shození talonu"
           ruleDescription="Hráč na povinnosti si z prvních 7 karet, co dostal vybere trumf. Vybraný trumf dá před sebe lícem dolů. Dobere si zbylích 5 karet a 2 karty shodí lícem dolů do talonu. 
-        V talonu nesmí být žádné desítky, Esa a trumfy. Jedinou výjimkou, kdy se můžou shodit trumfy, je kdyby se musela shodit desítka nebo Eso."
+          V talonu nesmí být žádné desítky, Esa a trumfy. Jedinou výjimkou, kdy se můžou shodit trumfy, je kdyby se musela shodit desítka nebo Eso."
+          id="Trumps"
         ></RuleCard>
         <RuleCard
           ruleTitle="Typy her"
@@ -46,6 +50,7 @@ const Page = () => {
           Velký – také zvaný Durch. Stejně jako u Malého, hodnota karet jde podle posloupnosti od 7 po Eso. Nehraje se zde na body. Trumfy zde nejsou Avšak zde říká, že vezme každý Štych. Při prohrání, byť jen jednoho, prohrává tuto hru.\n
           Pokud kterýkoli hráč sebere talon, staví se tím proti ostatním dvěma. Ti zase tvoří spolu tým, který se ho snaží chytit. \n
           Při opovězení otázky „Barva? Dobrá“ se ponechává základní rozložení rolí a hraje se tak normální hra. Povinnost ukazuje svoji Trumfovou kartu a ptá se Obrany, zda chtějí jít na hru. V této variantě se tak hraje na body. Karty jsou řazeny postupně s tím že desítka se přesouvá mezi Krále a Eso.`}
+          id="GameType"
         ></RuleCard>
         <RuleCard
           ruleTitle="Počítání bodů"
@@ -55,11 +60,13 @@ const Page = () => {
             - Ten kdo sebral poslední štych získává 10 bodů, hra nemůže tak skončit s vyrovnanými body.\n
             - Normální hláška je za 20 bodů.\n
             - Trumfová hláška je za 40 bodů.\n`}
+          id="Points"
         ></RuleCard>
         <RuleCard
           ruleTitle="Cenění her"
           ruleDescription={`Hlášení - Při normální hře má jak povinnost tak obrana možnost zahlásit Sedmu nebo Kilo, aby si tak zvýšila sazbu ze hry.\n
           Flekování - Po zahlášení, může obrana „fleknout“ jakoukoliv kategorii, co Povinnost zahlásí a zdvojnásobí tak cenu za danou kategorii. Může tím tedy napadnout jak Typ hry tak hlášení. Jestliže Obrana „flekne“ jakoukoliv kategorii, má Povinnost právo si danou kategorii „fleknout“ znovu a tím tak opět zdvojnásobit její hodnotu.\n`}
+          id="Pricing"
         ></RuleCard>
         <RuleCard
           ruleTitle="Sazba"
@@ -73,6 +80,7 @@ const Page = () => {
           - 5 korun za Malého neboli Betl.\n
           - 10 korun za Velkého neboli Durch.\n
           - Pokud byly trumfy v srdcích, tak se vše dvojnásobí.`}
+          id="GamePrice"
         ></RuleCard>
       </main>
       <SpeedInsights />
