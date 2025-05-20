@@ -337,6 +337,12 @@ const Calculate = ({
       }
     }
 
+    function getKorunaWord(finalPrice: number) {
+      if (finalPrice === 1) return "korunu";
+      if (finalPrice > 1 && finalPrice < 5) return "koruny";
+      return "korun";
+    }
+
     let finalPrice = povinnostPrice - obranaPrice;
     let dataPrice;
     if (data[5].statusInfo === "true") {
@@ -346,28 +352,54 @@ const Calculate = ({
 
     if (!user) {
       if (finalPrice > 0) {
-        calculateOutput = "Povinnost dostává " + finalPrice + " od každého";
+        calculateOutput =
+          "Povinnost dostává " +
+          finalPrice +
+          " " +
+          getKorunaWord(finalPrice) +
+          " od každého";
       } else if (finalPrice === 0) {
         calculateOutput = "Je to remíza";
       } else {
         finalPrice = finalPrice * -1;
-        calculateOutput = "Povinnost dává " + finalPrice + " každému";
+        calculateOutput =
+          "Povinnost dává " +
+          finalPrice +
+          " " +
+          getKorunaWord(finalPrice) +
+          " každému";
       }
       setResult(calculateOutput);
     } else {
       if (finalPrice > 0 && povinnost) {
-        calculateOutput = "Dostáváte " + finalPrice + " od každého";
+        calculateOutput =
+          "Dostáváte " +
+          finalPrice +
+          " " +
+          getKorunaWord(finalPrice) +
+          " od každého";
         dataPrice = finalPrice * 2;
       } else if (finalPrice > 0 && !povinnost) {
-        calculateOutput = "Dáváte " + finalPrice + " povinnosti";
+        calculateOutput =
+          "Dáváte " +
+          finalPrice +
+          " " +
+          getKorunaWord(finalPrice) +
+          " povinnosti";
         dataPrice = finalPrice * -1;
       } else if (finalPrice < 0 && povinnost) {
         finalPrice = finalPrice * -1;
-        calculateOutput = "Dáváte " + finalPrice + " každému";
+        calculateOutput =
+          "Dáváte " + finalPrice + " " + getKorunaWord(finalPrice) + " každému";
         dataPrice = finalPrice * -2;
       } else if (finalPrice < 0 && !povinnost) {
         finalPrice = finalPrice * -1;
-        calculateOutput = "Dostáváte " + finalPrice + " od povinnosti";
+        calculateOutput =
+          "Dostáváte " +
+          finalPrice +
+          " " +
+          getKorunaWord(finalPrice) +
+          " od povinnosti";
         dataPrice = finalPrice;
       } else {
         calculateOutput = "Je to remíza";

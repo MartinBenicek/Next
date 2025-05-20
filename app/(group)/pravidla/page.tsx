@@ -16,7 +16,7 @@ const Page = () => {
           Pravidla voleného mariáše
         </h1>
         <RuleCard
-          ruleTitle="Co je to Mariáš?"
+          ruleTitle="Co je to volený Mariáš?"
           ruleDescription={`Mariáš je tradiční karetní hra, která se těší velké oblibě zejména v Česku, na Slovensku, v Rakousku a Německu.\n
             Jde o strategickou karetní hru pro tři hráče, kde se jeden hráč (tzv. povinnost) postaví proti dvojici soupeřů (obrana).\n
 		        Cílem hry je získat co nejvíce bodů prostřednictvím štychů.`}

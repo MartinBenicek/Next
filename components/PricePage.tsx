@@ -78,10 +78,10 @@ const PricePage = ({
   return (
     <>
       <main className="flex flex-grow flex-col items-center justify-center gap-12 md:gap-14 lg:gap-5 py-[4vh]">
-        <div className="flex items-center gap-5">
+        <div className="flex flex-col items-center gap-5">
           <h1 className="text-3xl md:text-4xl lg:text-5xl">Výpočet ceny</h1>
-          <div className="relative group">
-            <span className="text-xl font-bold cursor-default">?</span>
+          <div className="relative group underline decoration-dotted">
+            <p>Nápověda</p>
             <div className="absolute left-1/3 transform -translate-x-1/2 mt-2 -ml-5 w-52 lg:w-96 p-2 z-10 bg-gray-800 text-white text-sm rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
               Jak použít výpočet ceny: <br />
               <br />
