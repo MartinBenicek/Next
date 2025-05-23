@@ -21,19 +21,33 @@ const Page = async ({
     redirect("/");
   }
   const games = await getGames();
+  const today = new Date();
+  const todayString = today.toLocaleDateString("cs-CZ");
+
+  const gamesToday = games?.filter(
+    (game) => game.created.toLocaleDateString("cs-CZ") === todayString
+  );
   return (
     <>
       <main className="flex flex-col items-center py-[5vh] gap-5">
         <h1 className="text-3xl md:text-4xl lg:text-5xl">Vaše hry</h1>
         {games && games.length > 0 ? (
-          <p className="text-xl lg:text-2xl">
-            Celkové množstí peněz za hry:{" "}
-            {games && games.length > 0
-              ? games.slice().reduce((acc, game) => {
-                  return acc + game.Cena;
-                }, 0)
-              : null}
-          </p>
+          <>
+            <p className="text-xl lg:text-2xl">
+              Celkové množstí peněz za hry:{" "}
+              {games && games.length > 0
+                ? games.slice().reduce((acc, game) => {
+                    return acc + game.Cena;
+                  }, 0)
+                : null}
+            </p>
+            <p className="text-xl lg:text-2xl px-[5vw] text-center">
+              Množstvý peněz uhraných za dnešní den:{" "}
+              {gamesToday && gamesToday.length > 0
+                ? gamesToday.reduce((acc, game) => acc + game.Cena, 0)
+                : 0}
+            </p>
+          </>
         ) : (
           <p className="text-xl lg:text-2xl">Nemáte zatím žádné hry.</p>
         )}
