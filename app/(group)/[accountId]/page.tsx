@@ -34,7 +34,7 @@ const Page = async ({
         {games && games.length > 0 ? (
           <>
             <p className="text-xl lg:text-2xl">
-              Celkové množstí peněz za hry:{" "}
+              Celkové množství peněz za hry:{" "}
               {games && games.length > 0
                 ? games.slice().reduce((acc, game) => {
                     return acc + game.Cena;
@@ -42,7 +42,7 @@ const Page = async ({
                 : null}
             </p>
             <p className="text-xl lg:text-2xl px-[5vw] text-center">
-              Množstvý peněz uhraných za dnešní den:{" "}
+              Množství peněz uhraných za dnešní den:{" "}
               {gamesToday && gamesToday.length > 0
                 ? gamesToday.reduce((acc, game) => acc + game.Cena, 0)
                 : 0}
@@ -51,7 +51,6 @@ const Page = async ({
         ) : (
           <p className="text-xl lg:text-2xl">Nemáte zatím žádné hry.</p>
         )}
-
         {games && games.length > 0 ? (
           <div className="overflow-x-auto w-full lg:w-auto">
             <table className="border-collapse w-full lg:w-auto">
